@@ -39,7 +39,7 @@ void BoxCarWidget::initSignalSlots()
 {
     connect(ui->spinBandGapSize, QOverload<int>::of(&QSpinBox::valueChanged), this, &BoxCarWidget::onChangedBoxCarGapSize);
     connect(ui->relativeWidget, &RelativePosWidget::onChangedBoxCarSpin, this, &BoxCarWidget::onChangedBoxCarData);
-    connect(d->mConfigInstance, &ConfigInformation::onChangedUseBoxCarAnalaysis, this, &BoxCarWidget::onConfigChangedAnalysis);
+    connect(d->mConfigInstance, &ConfigInformation::onChangedBoxCarAnalaysis, this, &BoxCarWidget::onConfigChangedAnalysis);
     connect(d->mConfigInstance, &ConfigInformation::onChangedUseBoxCarBandGap, this, &BoxCarWidget::onConfigChangedBandGap);
     connect(ui->spinBandCount,  QOverload<int>::of(&QSpinBox::valueChanged), this, [this]
             (int value)

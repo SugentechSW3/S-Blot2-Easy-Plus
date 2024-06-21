@@ -106,14 +106,16 @@ QVector<ConfigInformation::STRIP_COLOR> ReagentUserWidget::refineStripWidgetData
 
 ConfigInformation::STRIP_COLOR ReagentUserWidget::findColor(int contentsIdx, const GlobalDataStruct::TABLE_ITEM_ELEMENT& data)
 {
+    auto panelIdx = d->mConfig->getCurrentContentPanelIndex(data.panelName);
+
     switch(contentsIdx)
     {
 
     case (int)ConfigInformation::STANDARD_CONTETNS_LIST::ALLERGY:
-    {
-        auto panelIdx =  d->mConfig->getCurrentContentPanelIndex(data.panelName);
         return d->mConfig->getAllergyColor(panelIdx);
-    }
+
+    case (int)ConfigInformation::STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE:
+        return d->mConfig->getFoodIntoleranceColor(panelIdx);
 
     default:
         return ConfigInformation::STRIP_COLOR_NONE;

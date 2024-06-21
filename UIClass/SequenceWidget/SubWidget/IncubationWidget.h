@@ -12,11 +12,6 @@ public:
     explicit IncubationWidget(QWidget *parent = nullptr);
     virtual ~IncubationWidget();
 
-    enum SEQUENCE_INCUBATION
-    {
-        SEQUENCE_INCUBATION_TIME
-    };
-
     QVariantMap getConfigParameters();
     void setConfigParameters(const QVariantMap& parameter);
 private:

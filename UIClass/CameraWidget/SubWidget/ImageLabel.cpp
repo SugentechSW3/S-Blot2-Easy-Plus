@@ -49,7 +49,7 @@ void ImageLabel::init()
     this->onUpdateRotation(d->mConfigInformation->getRotation());
 
     connect(d->mConfigInformation, &ConfigInformation::onChangedHousingROI, this, &ImageLabel::onUpdateROIRect);
-    connect(d->mConfigInformation, &ConfigInformation::onChangedUseBoxCarAnalaysis, this, &ImageLabel::onUpdatePCLine);
+    connect(d->mConfigInformation, &ConfigInformation::onChangedBoxCarAnalaysis, this, &ImageLabel::onUpdatePCLine);
     connect(d->mConfigInformation, &ConfigInformation::onChangedUseMultiBand, this, &ImageLabel::onUpdateMultiBandLine);
     connect(d->mConfigInformation, &ConfigInformation::onChangedRotation, this, &ImageLabel::onUpdateRotation);
     connect(d->mConfigInformation, &ConfigInformation::onChangedGuideLine,  this, &ImageLabel::onUpdateGuideLine);

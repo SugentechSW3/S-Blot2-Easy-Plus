@@ -114,6 +114,9 @@
    </item>
    <item row="3" column="1">
     <widget class="QPushButton" name="btnDataExchange">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="text">
       <string>DataExchange</string>
      </property>

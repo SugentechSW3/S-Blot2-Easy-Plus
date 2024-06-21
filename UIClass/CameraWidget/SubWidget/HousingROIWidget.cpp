@@ -3,12 +3,19 @@
 
 #include "Analysis/GlobalDataStruct.h"
 
+struct HousingROIWidget::privateStruct
+{
+    ConfigInformation* mConfig = nullptr;
+};
 
 HousingROIWidget::HousingROIWidget(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui_HousingROIWidget)
+                                                      QWidget(parent),
+                                                      ui(new Ui_HousingROIWidget),
+                                                      d(new privateStruct)
 {
     ui->setupUi(this);
+    this->initVariables();
+    this->initSignalSlots();
     this->setGroupBoxName("Housing ROI");
     this->setGroupBoxNameColor(Qt::red);
     this->readConfigData();
@@ -16,6 +23,16 @@ HousingROIWidget::HousingROIWidget(QWidget *parent) :
 
 HousingROIWidget::~HousingROIWidget()
 {
+}
+
+void HousingROIWidget::initVariables()
+{
+    d->mConfig = this->getConfigInstance();
+}
+
+void HousingROIWidget::initSignalSlots()
+{
+    connect(d->mConfig, &ConfigInformation::onChangedHousingROI, this, &HousingROIWidget::onChangedConfig);
 }
 
 int HousingROIWidget::getX1()
@@ -91,4 +108,9 @@ void HousingROIWidget::writeConfigData()
     configData.y2 = this->getY2();
 
     instance->setHousingROI(configData);
+}
+
+void HousingROIWidget::onChangedConfig(GlobalDataStruct::HOUSING_ROI)
+{
+    this->readConfigData();
 }

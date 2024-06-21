@@ -63,6 +63,12 @@ public:
     int getHousingThres();
     void setHousingThres(int value);
 
+private:
+    void initVariables();
+    void initSignalSlots();
+
+private slots:
+    void onChangedConfig(GlobalDataStruct::USE_MULTIPLE_BAND);
 
 private:
     QScopedPointer<Ui_DualBandWidget> ui;

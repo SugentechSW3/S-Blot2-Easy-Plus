@@ -12,12 +12,6 @@ public:
     explicit PrimeWidget(QWidget *parent = nullptr);
     virtual ~PrimeWidget();
 
-    enum SEQUENCE_PRIME
-    {
-        SEQUENCE_PRIME_PUMP_CHANNEL,
-        SEQUENCE_PRIME_PUMP_TIME
-    };
-
     QVariantMap getConfigParameters();
     void setConfigParameters(const QVariantMap& parameter);
 private:

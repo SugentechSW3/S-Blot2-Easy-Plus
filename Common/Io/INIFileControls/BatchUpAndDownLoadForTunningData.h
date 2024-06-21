@@ -24,11 +24,7 @@ private:
     void initSignalSlots();
 
     void readAllergyDatas();
-    void writeAllergyDatas();
-
-    void readAllANADatas();
-    void writeAllANADatas();
-
+    void readAllFoodIntoleranceDatas();
     void readAllTunningDatas();
 
 private slots:

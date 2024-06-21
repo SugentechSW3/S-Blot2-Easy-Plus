@@ -77,6 +77,7 @@ SOURCES += \
     Common/Io/CPrintSupport.cpp \
     Common/Io/INIFileControls/CameraGenericIniDataControls.cpp \
     Common/Io/INIFileControls/CameraIniDataControls.cpp \
+    Common/Io/INIFileControls/FoodIntoleranceIniDataControls.cpp \
     Common/Io/INIFileControls/GenericIniDataControls.cpp \
     Common/Io/INIFileControls/TunningIniDataControls.cpp \
     Common/Io/INIFileControls/UserLoginDataControls.cpp \
@@ -268,6 +269,7 @@ HEADERS += \
     Common/Io/CPrintSupport.h \
     Common/Io/INIFileControls/CameraGenericIniDataControls.h \
     Common/Io/INIFileControls/CameraIniDataControls.h \
+    Common/Io/INIFileControls/FoodIntoleranceIniDataControls.h \
     Common/Io/INIFileControls/GenericIniDataControls.h \
     Common/Io/INIFileControls/TunningIniDataControls.h \
     Common/Io/INIFileControls/UserLoginDataControls.h \

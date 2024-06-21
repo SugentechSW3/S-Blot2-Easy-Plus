@@ -573,7 +573,9 @@ void MainView::onClickContentsChangeBtn()
 {
     CLogWriter::printLog(QString("[MainView::] : ---Click Contents Change---"));
     ContetnsSelectDlg dlg;
-    dlg.exec();
+
+    if(dlg.exec() == QDialog::Accepted)
+        emit onResultReset();
 }
 
 void MainView::onClickStripScan()
@@ -751,7 +753,7 @@ void MainView::offLineGUIProcessing()
     ui->btnMain->setDisabled(true);
 
     if(d->mUserButtonMenu.isNull() == false)
-        d->mUserButtonMenu->setOfflinMode();
+        d->mUserButtonMenu->setOfflineMode();
 }
 
 void MainView::showResultData()

@@ -35,18 +35,18 @@ void DPrimeWidget::init()
 QVariantMap DPrimeWidget::getConfigParameters()
 {
     QVariantMap dataMap;
-    dataMap[QString::number(SEQUENCE_D_PRIME_CHANNEL)] = ui->spinPumpChannel->value();
-    dataMap[QString::number(SEQUENCE_D_OPTION)] = ui->comboOption->currentData().toInt();
-    dataMap[QString::number(SEQUENCE_D_VOLUME)] = ui->spinVolume->value();
+    dataMap[QString::number(ConfigInformation::SEQUENCE_D_PRIME_CHANNEL)] = ui->spinPumpChannel->value();
+    dataMap[QString::number(ConfigInformation::SEQUENCE_D_OPTION)] = ui->comboOption->currentData().toInt();
+    dataMap[QString::number(ConfigInformation::SEQUENCE_D_VOLUME)] = ui->spinVolume->value();
 
     return dataMap;
 }
 
 void DPrimeWidget::setConfigParameters(const QVariantMap &parameter)
 {
-    ui->spinPumpChannel->setValue(parameter[QString::number(SEQUENCE_D_PRIME_CHANNEL)].toInt());
-    ui->comboOption->setCurrentIndex(this->findIndex(parameter[QString::number(SEQUENCE_D_OPTION)].toInt()));
-    ui->spinVolume->setValue(parameter[QString::number(SEQUENCE_D_VOLUME)].toInt());
+    ui->spinPumpChannel->setValue(parameter[QString::number(ConfigInformation::SEQUENCE_D_PRIME_CHANNEL)].toInt());
+    ui->comboOption->setCurrentIndex(this->findIndex(parameter[QString::number(ConfigInformation::SEQUENCE_D_OPTION)].toInt()));
+    ui->spinVolume->setValue(parameter[QString::number(ConfigInformation::SEQUENCE_D_VOLUME)].toInt());
 }
 
 int DPrimeWidget::findIndex(int data)

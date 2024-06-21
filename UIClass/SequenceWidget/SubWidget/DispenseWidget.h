@@ -12,12 +12,6 @@ public:
     explicit DispenseWidget(QWidget *parent = nullptr);
     virtual ~DispenseWidget();
 
-    enum SEQUENCE_DISPENSE
-    {
-        SEQUENCE_DISPENSE_PUMP_CHANNEL,
-        SEQUENCE_DISPENSE_PUMP_VOLUME
-    };
-
     QVariantMap getConfigParameters();
     void setConfigParameters(const QVariantMap &parameter);
 

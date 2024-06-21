@@ -34,18 +34,18 @@ void DRollBackWidget::init()
 QVariantMap DRollBackWidget::getConfigParameters()
 {
     QVariantMap dataMap;
-    dataMap[QString::number(SEQUENCE_D_ROLL_BACK_CHANNEL)] = ui->spinPumpChannel->value();
-    dataMap[QString::number(SEQUENCE_D_ROLL_BACK_OPTION)] = ui->comboOption->currentData().toInt();
-    dataMap[QString::number(SEQUENCE_D_ROLL_BACK_DURATION)] = ui->spinDuration->value();
+    dataMap[QString::number(ConfigInformation::SEQUENCE_D_ROLL_BACK_CHANNEL)] = ui->spinPumpChannel->value();
+    dataMap[QString::number(ConfigInformation::SEQUENCE_D_ROLL_BACK_OPTION)] = ui->comboOption->currentData().toInt();
+    dataMap[QString::number(ConfigInformation::SEQUENCE_D_ROLL_BACK_DURATION)] = ui->spinDuration->value();
 
     return dataMap;
 }
 
 void DRollBackWidget::setConfigParameters(const QVariantMap &parameter)
 {
-    ui->spinPumpChannel->setValue(parameter[QString::number(SEQUENCE_D_ROLL_BACK_CHANNEL)].toInt());
-    ui->comboOption->setCurrentIndex(this->findIndex(parameter[QString::number(SEQUENCE_D_ROLL_BACK_OPTION)].toInt()));
-    ui->spinDuration->setValue(parameter[QString::number(SEQUENCE_D_ROLL_BACK_DURATION)].toInt());
+    ui->spinPumpChannel->setValue(parameter[QString::number(ConfigInformation::SEQUENCE_D_ROLL_BACK_CHANNEL)].toInt());
+    ui->comboOption->setCurrentIndex(this->findIndex(parameter[QString::number(ConfigInformation::SEQUENCE_D_ROLL_BACK_OPTION)].toInt()));
+    ui->spinDuration->setValue(parameter[QString::number(ConfigInformation::SEQUENCE_D_ROLL_BACK_DURATION)].toInt());
 }
 
 int DRollBackWidget::findIndex(int data)

@@ -1,16 +1,34 @@
 #include "IntensityWidget.h"
 #include "ui_IntensityWidget.h"
 
+struct IntensityWidget::privateStruct
+{
+    ConfigInformation* mConfig = nullptr;
+};
+
 IntensityWidget::IntensityWidget(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui_IntensityWidget)
+                                                    QWidget(parent),
+                                                    ui(new Ui_IntensityWidget),
+                                                    d(new privateStruct)
 {
     ui->setupUi(this);
+    this->initVariables();
+    this->initSignalSlots();
     this->readConfigData();
 }
 
 IntensityWidget::~IntensityWidget()
 {
+}
+
+void IntensityWidget::initVariables()
+{
+    d->mConfig = this->getConfigInstance();
+}
+
+void IntensityWidget::initSignalSlots()
+{
+    connect(d->mConfig, &ConfigInformation::onChangedIntensity, this, &IntensityWidget::onChangedConfig);
 }
 
 int IntensityWidget::getParticle()
@@ -75,4 +93,9 @@ void IntensityWidget::writeConfigData()
     configData.white = ui->spinWhite->value();
 
     instance->setIntensity(configData);
+}
+
+void IntensityWidget::onChangedConfig(GlobalDataStruct::INTENSITY)
+{
+    this->readConfigData();
 }

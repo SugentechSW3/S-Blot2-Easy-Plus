@@ -12,12 +12,6 @@ public:
     explicit RollBackWidget(QWidget* parent = nullptr);
     virtual ~RollBackWidget();
 
-    enum SEQUENCE_ROLL_BACK
-    {
-        SEQUENCE_ROLL_BACK_PUMP_CHANNEL,
-        SEQUENCE_ROLL_BACK_TIME
-    };
-
     QVariantMap getConfigParameters();
     void setConfigParameters(const QVariantMap &parameter);
 private:

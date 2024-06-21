@@ -8,7 +8,9 @@
 class Ui_HousingROIWidget;
 class HousingROIWidget : public QWidget, public CConfig
 {
+private:
     Q_OBJECT
+    struct privateStruct;
 
 public:
     explicit HousingROIWidget(QWidget *parent = nullptr);
@@ -33,7 +35,15 @@ public:
     void writeConfigData();
 
 private:
+    void initVariables();
+    void initSignalSlots();
+
+private slots:
+    void onChangedConfig(GlobalDataStruct::HOUSING_ROI);
+
+private:
     QScopedPointer<Ui_HousingROIWidget> ui;
+    QScopedPointer<privateStruct> d;
 };
 
 #endif // HOUSINGROI_H

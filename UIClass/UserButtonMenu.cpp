@@ -29,6 +29,7 @@ void UserButtonMenu::initSignalSlots()
     connect(ui->btnResultView, &QPushButton::clicked, this, &UserButtonMenu::onClickedResultView);
     connect(ui->btnStripScan, &QPushButton::clicked, this, &UserButtonMenu::onClickedStripScan);
     connect(ui->btnAspration, &QPushButton::clicked, this, &UserButtonMenu::onClickedAspiration);
+    connect(ui->btnContentsChange, &QPushButton::clicked, this, &UserButtonMenu::onClickedContentsChange);
 }
 
 void UserButtonMenu::initStyleSheet()
@@ -56,6 +57,10 @@ void UserButtonMenu::initStyleSheet()
     ui->btnAspration->setStyleSheetImage(":/Image/Image/Home/aspiration_normal.png", ":/Image/Image/Home/aspiration_over.png"
                                          ,":/Image/Image/Home/aspiration_focus.png", ":/Image/Image/Home/aspiration_disable.png");
 
+    ui->btnContentsChange->setStyleSheetImage(":/Image/Image/Home/contentschange_normal.png", ":/Image/Image/Home/contentschange_over.png"
+                                              ,":/Image/Image/Home/contentschange_focus.png", ":/Image/Image/Home/contentschange_disable.png");
+
+
     for(auto& itr:userButton)
     {
         itr->setGraphicsDropShadowEffect(true);
@@ -70,7 +75,7 @@ void UserButtonMenu::stopWidget()
 {
 }
 
-void UserButtonMenu::setOfflinMode()
+void UserButtonMenu::setOfflineMode()
 {
     ui->btnWorkPlace->setDisabled(true);
     ui->btnReset->setDisabled(true);
@@ -78,4 +83,5 @@ void UserButtonMenu::setOfflinMode()
     ui->btnAutoClean->setDisabled(true);
     ui->btnStripScan->setDisabled(true);
     ui->btnAspration->setDisabled(true);
+    ui->btnContentsChange->setDisabled(true);
 }

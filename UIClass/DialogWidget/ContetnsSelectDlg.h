@@ -6,7 +6,9 @@
 class Ui_ContetnsSelectDlg;
 class ContetnsSelectDlg : public CDialogParentWidget
 {
+private:
     Q_OBJECT
+    struct privateStruct;
 
 public:
     explicit ContetnsSelectDlg(QWidget *parent = nullptr);
@@ -17,8 +19,16 @@ private:
     void initSignalSlots();
     void initStyleSheet();
 
+    void sequenceUpdate(const QString& contentsName);
+
+    void disableButton();
+
+private slots:
+    void onFinishSeqeuence();
+
 private:
     QScopedPointer<Ui_ContetnsSelectDlg> ui;
+    QScopedPointer<privateStruct> d;
 };
 
 #endif // CONTETNSSELECTDLG_H

@@ -8,7 +8,9 @@
 class Ui_IntensityWidget;
 class IntensityWidget : public QWidget, public CConfig
 {
+private:
     Q_OBJECT
+    struct privateStruct;
 
 public:
     explicit IntensityWidget(QWidget *parent = nullptr);
@@ -28,8 +30,17 @@ public:
 
     virtual void readConfigData();
     virtual void writeConfigData();
+
+private:
+    void initVariables();
+    void initSignalSlots();
+
+private slots:
+    void onChangedConfig(GlobalDataStruct::INTENSITY);
+
 private:
     QScopedPointer<Ui_IntensityWidget> ui;
+    QScopedPointer<privateStruct> d;
 };
 
 #endif // INTENSITYWIDGET_H

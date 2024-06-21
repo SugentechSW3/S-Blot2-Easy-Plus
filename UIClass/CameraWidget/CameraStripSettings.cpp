@@ -15,14 +15,12 @@ USING_SUGENTECH
 
 struct CameraStripSettings::privateStruct
 {
-    QScopedPointer<BoxCarWidget> mBoxCarWidget; // 추후에 컨텐츠별로 만들어야할 필요성......
+    QScopedPointer<BoxCarWidget> mBoxCarWidget;
     QScopedPointer<DualBandWidget> mDualBandWidget;
     QScopedPointer<CirclePrograssDialog> mPrograssDlg;
 
     ConfigInformation* mConfigInstance = nullptr;
     QString mSelectedCompany;
-
-    bool mIsInitContents = true;
 };
 
 CameraStripSettings::CameraStripSettings(QWidget *parent) :
@@ -63,7 +61,8 @@ void CameraStripSettings::initSignalSlots()
     connect(ui->widgetCommandMenu, &CommandMenuWidget::onGraphHide, this, &CameraStripSettings::onGraphHide);
 
     connect(ui->btnRecipeSave, &QPushButton::clicked, this, &CameraStripSettings::writeConfigure);
-    connect(ui->checkUseMultiBand, &QCheckBox::clicked, this, &CameraStripSettings::onUseChanged);
+    connect(ui->checkUseMultiBand, &QCheckBox::toggled, this, &CameraStripSettings::onUseChanged);
+    connect(ui->comboContents, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &CameraStripSettings::onContentsChanged);
 
     connect(d->mConfigInstance, &ConfigInformation::onChangedIsUseMultiBand, this, [this]
             (bool status)
@@ -171,12 +170,6 @@ void CameraStripSettings::writeDualBand(bool isChecked)
 
 void CameraStripSettings::onContentsChanged(int idx)
 {
-    if(d->mIsInitContents == true)
-    {
-        d->mIsInitContents = false;
-        return;
-    }
-
     auto contentsList = d->mConfigInstance->getContentsList();
 
     if(idx < contentsList.count())
@@ -184,7 +177,7 @@ void CameraStripSettings::onContentsChanged(int idx)
         auto currentContentsName = contentsList[idx];
         d->mConfigInstance->setCurrentContents(currentContentsName);
 
-        CUtil::messageBox(QString("ContentsSelected: %1").arg(currentContentsName));
+        CUtil::messageBox(QString("ContentsChanged: %1").arg(currentContentsName));
     }
 }
 

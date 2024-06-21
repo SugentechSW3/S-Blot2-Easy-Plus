@@ -752,8 +752,10 @@ void WorkPlaceView::onAnalysisFinished(QVector<GlobalDataStruct::AnalysisReportI
 
     auto contentsStr = d->mConfigInstance->getCurrentContents();
     auto allergyStr = d->mConfigInstance->getContentsNameFromEnum((int)ConfigInformation::STANDARD_CONTETNS_LIST::ALLERGY);
+    auto foodIntoleranceStr = d->mConfigInstance->getContentsNameFromEnum((int)ConfigInformation::STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE);
 
     auto isALLERGY = (contentsStr == allergyStr);
+    auto isFoodIntolerance = (contentsStr == foodIntoleranceStr);
 
     if(isALLERGY == true)
     {
@@ -766,6 +768,18 @@ void WorkPlaceView::onAnalysisFinished(QVector<GlobalDataStruct::AnalysisReportI
             return;
         }
     }
+    else if(isFoodIntolerance)
+    {
+        QScopedPointer<IDataClassifier> calcClassData(new DataClassifierBase);
+
+        if(calcClassData->calcClassData(result, d->mCodeFuncDataBase.data()) == false)
+        {
+            CUtil::messageBox(tr("Can not Calc ClassData"));
+            CLogWriter::printLog(QString("[DataBase] Calc ClassData Fail"), CLogWriter::LOG_TYPE_RELEASE);
+            return;
+        }
+    }
+
 
     if(this->isNewDBData(result) == true)
     {

@@ -50,7 +50,6 @@ void BatchUpAndDownLoadForTunningData::initSignalSlots()
     connect(d->mConfigure, &ConfigInformation::endConfigProtocol, this, [this]
             (bool)
             {
-                d->mChannelCount = 0;
                 emit onExchangeSuccess();
             });
 
@@ -71,18 +70,8 @@ QStringList BatchUpAndDownLoadForTunningData::getSupportedDirList()
 
 void BatchUpAndDownLoadForTunningData::downLoadAlldata()
 {
-
-    auto config = ConfigInformation::getInstance();
-    auto currentContents = config->getCurrentContents();
-    auto contentsNameAllergy = ConfigInformation::getContentsNameFromEnum((int)ConfigInformation::STANDARD_CONTETNS_LIST::ALLERGY);
-    QString contentsNameANA = "ana";
-
-    if(contentsNameAllergy == currentContents)
-        this->readAllergyDatas();
-
-    else if(contentsNameANA == currentContents)
-        this->readAllANADatas();
-
+    this->readAllergyDatas(); //configinformation from ini
+    this->readAllFoodIntoleranceDatas();
     this->readAllTunningDatas();
 
     d->mConfigure->sendDataEnd();
@@ -96,19 +85,12 @@ void BatchUpAndDownLoadForTunningData::readAllergyDatas()
     config->saveContentsTunningINIData(contentsName);
 }
 
-void BatchUpAndDownLoadForTunningData::writeAllergyDatas()
+void BatchUpAndDownLoadForTunningData::readAllFoodIntoleranceDatas()
 {
+    auto config = ConfigInformation::getInstance();
+    auto contentsName = ConfigInformation::getContentsNameFromEnum((int)ConfigInformation::STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE);
 
-}
-
-void BatchUpAndDownLoadForTunningData::readAllANADatas()
-{
-
-}
-
-void BatchUpAndDownLoadForTunningData::writeAllANADatas()
-{
-
+    config->saveContentsTunningINIData(contentsName);
 }
 
 void BatchUpAndDownLoadForTunningData::readAllTunningDatas()

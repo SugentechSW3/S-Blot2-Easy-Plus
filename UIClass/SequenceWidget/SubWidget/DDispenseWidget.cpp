@@ -34,18 +34,18 @@ void DDispenseWidget::init()
 QVariantMap DDispenseWidget::getConfigParameters()
 {
     QVariantMap dataMap;
-    dataMap[QString::number(SEQUENCE_D_DISPENSE_CHANNEL)] = ui->spinPumpChannel->value();
-    dataMap[QString::number(SEQUENCE_D_DISPENSE_OPTION)] = ui->comboOption->currentData().toInt();
-    dataMap[QString::number(SEQUENCE_D_DISPENSE_VOLUME)] = ui->spinVolume->value();
+    dataMap[QString::number(ConfigInformation::SEQUENCE_D_DISPENSE_CHANNEL)] = ui->spinPumpChannel->value();
+    dataMap[QString::number(ConfigInformation::SEQUENCE_D_DISPENSE_OPTION)] = ui->comboOption->currentData().toInt();
+    dataMap[QString::number(ConfigInformation::SEQUENCE_D_DISPENSE_VOLUME)] = ui->spinVolume->value();
 
     return dataMap;
 }
 
 void DDispenseWidget::setConfigParameters(const QVariantMap &parameter)
 {
-    ui->spinPumpChannel->setValue(parameter[QString::number(SEQUENCE_D_DISPENSE_CHANNEL)].toInt());
-    ui->comboOption->setCurrentIndex(this->findIndex(parameter[QString::number(SEQUENCE_D_DISPENSE_OPTION)].toInt()));
-    ui->spinVolume->setValue(parameter[QString::number(SEQUENCE_D_DISPENSE_VOLUME)].toInt());
+    ui->spinPumpChannel->setValue(parameter[QString::number(ConfigInformation::SEQUENCE_D_DISPENSE_CHANNEL)].toInt());
+    ui->comboOption->setCurrentIndex(this->findIndex(parameter[QString::number(ConfigInformation::SEQUENCE_D_DISPENSE_OPTION)].toInt()));
+    ui->spinVolume->setValue(parameter[QString::number(ConfigInformation::SEQUENCE_D_DISPENSE_VOLUME)].toInt());
 }
 
 int DDispenseWidget::findIndex(int data)

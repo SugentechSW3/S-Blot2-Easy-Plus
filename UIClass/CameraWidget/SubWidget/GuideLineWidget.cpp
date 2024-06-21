@@ -1,9 +1,15 @@
 #include "GuideLineWidget.h"
 #include "ui_GuideLineWidget.h"
 
+struct GuideLineWidget::privateStruct
+{
+    ConfigInformation* mConfig = nullptr;
+};
+
 GuideLineWidget::GuideLineWidget(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui_GuideLineWidget)
+                                                    QWidget(parent),
+                                                    ui(new Ui_GuideLineWidget),
+                                                    d(new privateStruct)
 {
     ui->setupUi(this);
     this->initSignalSlots();
@@ -17,9 +23,15 @@ GuideLineWidget::~GuideLineWidget()
 {
 }
 
+void GuideLineWidget::initVariables()
+{
+    d->mConfig = this->getConfigInstance();
+}
+
 void GuideLineWidget::initSignalSlots()
 {
-    connect(ui->btnWrite, SIGNAL(clicked()), SLOT(onClickedWrite()));
+    connect(ui->btnWrite, &QPushButton::clicked, this, &GuideLineWidget::onClickedWrite);
+    connect(d->mConfig, &ConfigInformation::onChangedGuideLine, this, &GuideLineWidget::onChangedConfig);
 }
 
 void GuideLineWidget::readConfigData()
@@ -50,3 +62,9 @@ void GuideLineWidget::onClickedWrite()
 {
     this->writeConfigData();
 }
+
+void GuideLineWidget::onChangedConfig(GlobalDataStruct::GUIDE_LINE)
+{
+    this->readConfigData();
+}
+

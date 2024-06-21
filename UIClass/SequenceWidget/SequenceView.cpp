@@ -505,31 +505,31 @@ void SequenceView::stackSequenceCommand(QTreeWidget* widget, QVector<QByteArray>
             {
             case ConfigInformation::PROCESS_LIST_PRIME:
                 protocolStr = WriteProtocolSequenceGenrator::writeSQProcessParameterDWordPrime1(
-                    dataStruct.data[QString::number(PrimeWidget::SEQUENCE_PRIME_PUMP_CHANNEL)].toUInt(),
-                    dataStruct.data[QString::number(PrimeWidget::SEQUENCE_PRIME_PUMP_TIME)].toUInt()
+                    dataStruct.data[QString::number(ConfigInformation::SEQUENCE_PRIME_PUMP_CHANNEL)].toUInt(),
+                    dataStruct.data[QString::number(ConfigInformation::SEQUENCE_PRIME_PUMP_TIME)].toUInt()
                     );  break;
 
             case ConfigInformation::PROCESS_LIST_ROLL_BACK:
                 protocolStr = WriteProtocolSequenceGenrator::writeSQProcessParameterDWordRollBack1(
-                    dataStruct.data[QString::number(RollBackWidget::SEQUENCE_ROLL_BACK_PUMP_CHANNEL)].toUInt(),
-                    dataStruct.data[QString::number(RollBackWidget::SEQUENCE_ROLL_BACK_TIME)].toUInt()
+                    dataStruct.data[QString::number(ConfigInformation::SEQUENCE_ROLL_BACK_PUMP_CHANNEL)].toUInt(),
+                    dataStruct.data[QString::number(ConfigInformation::SEQUENCE_ROLL_BACK_TIME)].toUInt()
                     );  break;
 
             case ConfigInformation::PROCESS_LIST_DISPENSE:
                 protocolStr = WriteProtocolSequenceGenrator::writeSQProcessParameterDWordDispense1(
-                    dataStruct.data[QString::number(DispenseWidget::SEQUENCE_DISPENSE_PUMP_CHANNEL)].toUInt(),
-                    dataStruct.data[QString::number(DispenseWidget::SEQUENCE_DISPENSE_PUMP_VOLUME)].toUInt()
+                    dataStruct.data[QString::number(ConfigInformation::SEQUENCE_DISPENSE_PUMP_CHANNEL)].toUInt(),
+                    dataStruct.data[QString::number(ConfigInformation::SEQUENCE_DISPENSE_PUMP_VOLUME)].toUInt()
                     );  break;
 
             case ConfigInformation::PROCESS_LIST_ASPIRATION:
                 protocolStr = WriteProtocolSequenceGenrator::writeSQProcessParameterDWordAspiration(
-                    dataStruct.data[QString::number(AspirationWidget::SEQUENCE_ASPIRATION_TIME)].toUInt(),
-                    dataStruct.data[QString::number(AspirationWidget::SEQUENCE_ASPIRATION_COUNT)].toUInt()
+                    dataStruct.data[QString::number(ConfigInformation::SEQUENCE_ASPIRATION_TIME)].toUInt(),
+                    dataStruct.data[QString::number(ConfigInformation::SEQUENCE_ASPIRATION_COUNT)].toUInt()
                     );  break;
 
             case ConfigInformation::PROCESS_LIST_INCUBATION:
                 protocolStr = WriteProtocolSequenceGenrator::writeSQProcessParameterDWordIncubation(
-                    dataStruct.data[QString::number(IncubationWidget::SEQUENCE_INCUBATION_TIME)].toUInt()
+                    dataStruct.data[QString::number(ConfigInformation::SEQUENCE_INCUBATION_TIME)].toUInt()
                     );  break;
 
             case ConfigInformation::PROCESS_LIST_BUZZER:
@@ -538,9 +538,9 @@ void SequenceView::stackSequenceCommand(QTreeWidget* widget, QVector<QByteArray>
 
             case ConfigInformation::PROCESS_LIST_DRY:
                 protocolStr = WriteProtocolSequenceGenrator::writeSQProcessParameterDWordDry(
-                    dataStruct.data[QString::number(DryWidget::SEQUENCE_DRY_SPEED)].toUInt(),                    
-                    dataStruct.data[QString::number(DryWidget::SEQUENCE_HEATING_TIME)].toUInt(),
-                    dataStruct.data[QString::number(DryWidget::SEQUENCE_DRY_TIME)].toUInt());
+                    dataStruct.data[QString::number(ConfigInformation::SEQUENCE_DRY_SPEED)].toUInt(),
+                    dataStruct.data[QString::number(ConfigInformation::SEQUENCE_HEATING_TIME)].toUInt(),
+                    dataStruct.data[QString::number(ConfigInformation::SEQUENCE_DRY_TIME)].toUInt());
                 break;
 
             case ConfigInformation::PROCESS_LIST_PAUSE:
@@ -551,23 +551,23 @@ void SequenceView::stackSequenceCommand(QTreeWidget* widget, QVector<QByteArray>
 
             case ConfigInformation::PROCESS_LIST_PRIME_D:
                 protocolStr = WriteProtocolSequenceGenrator::writeSQProcessParameterDwordDPrime(
-                    dataStruct.data[QString::number(DPrimeWidget::SEQUENCE_D_PRIME_CHANNEL)].toUInt(),
-                    dataStruct.data[QString::number(DPrimeWidget::SEQUENCE_D_OPTION)].toUInt(),
-                    dataStruct.data[QString::number(DPrimeWidget::SEQUENCE_D_VOLUME)].toUInt()
+                    dataStruct.data[QString::number(ConfigInformation::SEQUENCE_D_PRIME_CHANNEL)].toUInt(),
+                    dataStruct.data[QString::number(ConfigInformation::SEQUENCE_D_OPTION)].toUInt(),
+                    dataStruct.data[QString::number(ConfigInformation::SEQUENCE_D_VOLUME)].toUInt()
                     );  break;
 
             case ConfigInformation::PROCESS_LIST_ROLL_BACK_D:
                 protocolStr = WriteProtocolSequenceGenrator::writeSQProcessParameterDwordDPrime(
-                    dataStruct.data[QString::number(DRollBackWidget::SEQUENCE_D_ROLL_BACK_CHANNEL)].toUInt(),
-                    dataStruct.data[QString::number(DRollBackWidget::SEQUENCE_D_ROLL_BACK_OPTION)].toUInt(),
-                    dataStruct.data[QString::number(DRollBackWidget::SEQUENCE_D_ROLL_BACK_DURATION)].toUInt()
+                    dataStruct.data[QString::number(ConfigInformation::SEQUENCE_D_ROLL_BACK_CHANNEL)].toUInt(),
+                    dataStruct.data[QString::number(ConfigInformation::SEQUENCE_D_ROLL_BACK_OPTION)].toUInt(),
+                    dataStruct.data[QString::number(ConfigInformation::SEQUENCE_D_ROLL_BACK_DURATION)].toUInt()
                     );  break;
 
             case ConfigInformation::PROCESS_LIST_DISPENSE_D:
                 protocolStr = WriteProtocolSequenceGenrator::writeSQProcessParameterDwordDPrime(
-                    dataStruct.data[QString::number(DDispenseWidget::SEQUENCE_D_DISPENSE_CHANNEL)].toUInt(),
-                    dataStruct.data[QString::number(DDispenseWidget::SEQUENCE_D_DISPENSE_OPTION)].toUInt(),
-                    dataStruct.data[QString::number(DDispenseWidget::SEQUENCE_D_DISPENSE_VOLUME)].toUInt()
+                    dataStruct.data[QString::number(ConfigInformation::SEQUENCE_D_DISPENSE_CHANNEL)].toUInt(),
+                    dataStruct.data[QString::number(ConfigInformation::SEQUENCE_D_DISPENSE_OPTION)].toUInt(),
+                    dataStruct.data[QString::number(ConfigInformation::SEQUENCE_D_DISPENSE_VOLUME)].toUInt()
                     );  break;
             }
 

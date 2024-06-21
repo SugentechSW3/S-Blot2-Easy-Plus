@@ -7,7 +7,9 @@
 class Ui_GuideLineWidget;
 class GuideLineWidget : public QWidget, public CConfig
 {
+private:
     Q_OBJECT
+    struct privateStruct;
 
 public:
     explicit GuideLineWidget(QWidget *parent = nullptr);
@@ -17,13 +19,16 @@ public:
     void writeConfigData();
 
 private:
+    void initVariables();
     void initSignalSlots();
 
 private slots:
     void onClickedWrite();
+    void onChangedConfig(GlobalDataStruct::GUIDE_LINE);
 
 private:
     QScopedPointer<Ui_GuideLineWidget> ui;
+    QScopedPointer<privateStruct> d;
 };
 
 #endif // GUIDELINEWIDGET_H

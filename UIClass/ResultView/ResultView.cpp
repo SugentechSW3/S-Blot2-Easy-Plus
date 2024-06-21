@@ -1215,7 +1215,7 @@ HL7_PID_DATA ResultView::getResultPIDData(int idx)
     HL7_PID_DATA pidData;
     auto itr = d->mResult[idx];
 
-    pidData.index = idx + 1;
+    pidData.index = QString::number(idx + 1);
     pidData.sex = itr.element.sex;
     pidData.name = itr.element.name;
     pidData.birthDate = itr.element.age;
@@ -1230,7 +1230,7 @@ HL7_OBR_DATA ResultView::getResultOBRData(int idx)
     HL7_OBR_DATA obrData;
     auto itr = d->mResult[idx];
 
-    obrData.index = idx + 1;
+    obrData.index = QString::number(idx + 1);
     obrData.dateTime = itr.dateTime.toString("yyyyMMddhhmmss");
     obrData.patientID = itr.element.patientID;
     obrData.panelInitial = HL7InterFaceReader::panelNameToPanelInitial(itr.element.panelName);

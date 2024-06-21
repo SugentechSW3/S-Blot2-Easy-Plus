@@ -1,6 +1,8 @@
 #ifndef ConfigInformation_H
 #define ConfigInformation_H
 
+#define USE_FILE_BASED_SEQUENCE (1)
+
 #include <QObject>
 #include <QScopedPointer>
 #include <QDataStream>
@@ -90,18 +92,26 @@ public:
         ALLERGY_END_OF_PANEL
     };
 
+    enum FOOD_INTOLERANCE_LISTS
+    {
+        FOOD_INTOLERANCE_LISTS_NONE,
+        FOOD_INTOLERANCE_PANEL,
+        FOOD_INTOLERANCE_END_OF_PANEL
+    };
+
     enum class STANDARD_CONTETNS_LIST
     {
         ALLERGY,
+        FOOD_INTOLERANCE,
         END_OF_STANDARD_CONTETNS_LIST
     };
 
     enum class SUGENTECH_CONTENTS_LIST
     {
         ALLERGY = (int)STANDARD_CONTETNS_LIST::ALLERGY,
+        FOOD_INTOLERANCE = (int)STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE,
         SUGENTECH_END_OF_CONTENTS
     };
-
 
     enum SEQUENCE_STATE
     {
@@ -117,10 +127,131 @@ public:
         STRIP_COLOR_GREEN
     };
 
+    enum SEQUENCE_ASPIRATION
+    {
+        SEQUENCE_ASPIRATION_TIME,
+        SEQUENCE_ASPIRATION_COUNT
+    };
+
+    enum SEQUENCE_D_DISPENSE
+    {
+        SEQUENCE_D_DISPENSE_CHANNEL,
+        SEQUENCE_D_DISPENSE_OPTION,
+        SEQUENCE_D_DISPENSE_VOLUME
+    };
+
+    enum SEQUENCE_DISP_ASP_1
+    {
+        SEQUENCE_DISP_ASP_1_CHANNEL,
+        SEQUENCE_DISP_ASP_1_VOLUME
+    };
+
+    enum SEQUENCE_DISP_ASP_2
+    {
+        SEQUENCE_DISP_ASP_2_PUMP1,
+        SEQUENCE_DISP_ASP_2_PUMP2,
+        SEQUENCE_DISP_ASP_2_VOLUME
+    };
+
+    enum SEQUENCE_DISP_ASP_3
+    {
+        SEQUENCE_DISP_ASP_3_PUMP1,
+        SEQUENCE_DISP_ASP_3_PUMP2,
+        SEQUENCE_DISP_ASP_3_PUMP3,
+        SEQUENCE_DISP_ASP_3_VOLUME
+    };
+
+    enum SEQUENCE_DISPENSE
+    {
+        SEQUENCE_DISPENSE_PUMP_CHANNEL,
+        SEQUENCE_DISPENSE_PUMP_VOLUME
+    };
+
+    enum SEQUENCE_DISPENSE2
+    {
+        SEQUENCE_DISPENSE2_PUMP_CHANNEL_1,
+        SEQUENCE_DISPENSE2_PUMP_CHANNEL_2,
+        SEQUENCE_DISPENSE2_PUMP_VOLUME
+    };
+
+    enum SEQUENCE_D_PRIME
+    {
+        SEQUENCE_D_PRIME_CHANNEL,
+        SEQUENCE_D_OPTION,
+        SEQUENCE_D_VOLUME
+    };
+
+    enum SEQUENCE_D_ROLL_BACK
+    {
+        SEQUENCE_D_ROLL_BACK_CHANNEL,
+        SEQUENCE_D_ROLL_BACK_OPTION,
+        SEQUENCE_D_ROLL_BACK_DURATION
+    };
+
+    enum SEQUENCE_DRY
+    {
+        SEQUENCE_DRY_SPEED,
+        SEQUENCE_HEATING_TIME,
+        SEQUENCE_DRY_TIME
+    };
+
+    enum SEQUENCE_INCUBATION
+    {
+        SEQUENCE_INCUBATION_TIME
+    };
+
+    enum SEQUENCE_INCUBATION_WS
+    {
+        SEQUENCE_INCUBATION_WS_TIME
+    };
+
+    enum SEQUENCE_PRIME
+    {
+        SEQUENCE_PRIME_PUMP_CHANNEL,
+        SEQUENCE_PRIME_PUMP_TIME
+    };
+
+    enum SEQUENCE_PRIME2
+    {
+        SEQUENCE_PRIME2_PUMP_CHANNEL_1,
+        SEQUENCE_PRIME2_PUMP_CHANNEL_2,
+        SEQUENCE_PRIME2_PUMP_TIME
+    };
+
+    enum SEQUENCE_PRIME3
+    {
+        SEQUENCE_PRIME3_PUMP_CHANNEL_1,
+        SEQUENCE_PRIME3_PUMP_CHANNEL_2,
+        SEQUENCE_PRIME3_PUMP_CHANNEL_3,
+        SEQUENCE_PRIME3_PUMP_TIME
+    };
+
+    enum SEQUENCE_ROLL_BACK
+    {
+        SEQUENCE_ROLL_BACK_PUMP_CHANNEL,
+        SEQUENCE_ROLL_BACK_TIME
+    };
+
+    enum SEQUENCE_ROLL_BACK_2
+    {
+        SEQUENCE_ROLL_BACK_2_PUMP_CHANNEL_1,
+        SEQUENCE_ROLL_BACK_2_PUMP_CHANNEL_2,
+        SEQUENCE_ROLL_BACK_2_TIME
+    };
+
+    enum SEQUENCE_ROLL_BACK_3
+    {
+        SEQUENCE_ROLL_BACK_3_PUMP_CHANNEL_1,
+        SEQUENCE_ROLL_BACK_3_PUMP_CHANNEL_2,
+        SEQUENCE_ROLL_BACK_3_PUMP_CHANNEL_3,
+        SEQUENCE_ROLL_BACK_3_TIME
+    };
+
     Q_ENUM(STEP_LIST)
     Q_ENUM(PROCESS_LIST)
     Q_ENUM(CONFIG_FILE_NAMES)
     Q_ENUM(ALLERGY_PANEL_LISTS)
+    Q_ENUM(FOOD_INTOLERANCE_LISTS)
     Q_ENUM(SUGENTECH_CONTENTS_LIST)
     Q_ENUM(STANDARD_CONTETNS_LIST)
     Q_ENUM(SEQUENCE_STATE)
@@ -202,6 +333,8 @@ public:
     void saveContentsTunningINIData(const QString &contentsName);
 
     QStringList getAllergyPanelList() const;
+    QStringList getFoodIntoleranceList() const;
+
     QVector<QString> getStripNameList(const QString &contents, const QString& panelName);    
     QVector<QString> getCurrentStripNameList(const QString& panelName);
     QStringList getCurrentStripCodeList(const QString& panelName);
@@ -244,6 +377,9 @@ public:
     ConfigInformation::STRIP_COLOR getAllergyColor(int panelIdx);
     ConfigInformation::STRIP_COLOR getAllergyColor(const QString& panelName);
 
+    ConfigInformation::STRIP_COLOR getFoodIntoleranceColor(int panelIdx);
+    ConfigInformation::STRIP_COLOR getFoodIntoleranceColor(const QString& panelName);
+
     GlobalDataStruct::LANGUAGE_LIST changeCurrentLanguage(const GlobalDataStruct::LANGUAGE_LIST& language);
 
     QString getCurrentLanguagetoString();
@@ -278,6 +414,10 @@ public:
     static QByteArray makeSequenceID(uchar smb, ushort sequenceID);
     static QByteArray makeStepNumber(uchar stepNumber);
     static QByteArray makeProcessNumber(ushort processNumber, ushort processIndex);
+    static QVector<QByteArray> makeSequenceProtocol(const QVector<GlobalDataStruct::SEQUENCE_STRUCT>& sequenceList);
+    static QVector<QByteArray> makeSequenceCommandFromStruct(const QVector<GlobalDataStruct::SEQUENCE_STRUCT> &sequenceList);
+    static QByteArray makeSequenceCommandForProcessProtocol(const GlobalDataStruct::PROCESS_DATA& dataStruct);
+
 signals:
     void onChangedHousingROI(GlobalDataStruct::HOUSING_ROI configData);
     void onChangedIntensity(GlobalDataStruct::INTENSITY configData);
@@ -286,7 +426,7 @@ signals:
     void onChangedGuideLine(GlobalDataStruct::GUIDE_LINE configData);
     void onChangedFlip(int configData);
     void onChangedRotation(double configData);
-    void onChangedUseBoxCarAnalaysis(GlobalDataStruct::USE_BOXCAR_ANALYSIS configData);
+    void onChangedBoxCarAnalaysis(GlobalDataStruct::USE_BOXCAR_ANALYSIS configData);
     void onChangedUseBoxCarBandGap(GlobalDataStruct::USE_BOXCAR_BAND configData);
     void onChangedUseMultiBand(GlobalDataStruct::USE_MULTIPLE_BAND configData);
     void onChangedIsUseMultiBand(bool status);
@@ -335,6 +475,7 @@ private:
     void readSugentechContentsList();
 
     void setAllergySampleAndStripCount();
+    void setFoodIntoleranceSampleAndStripCount();
 
     //contents dependent
     void writeHousingROI(QString contentsName);

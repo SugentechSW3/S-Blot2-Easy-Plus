@@ -12,7 +12,9 @@ DualBandWidget::DualBandWidget(QWidget *parent) :
                                                   d(new privateStruct)
 {
     ui->setupUi(this);
-    d->mConfigInstance = this->getConfigInstance();
+
+    this->initVariables();
+    this->initSignalSlots();
 
     this->readConfigData();
 }
@@ -20,6 +22,17 @@ DualBandWidget::DualBandWidget(QWidget *parent) :
 DualBandWidget::~DualBandWidget()
 {
 }
+
+void DualBandWidget::initVariables()
+{
+    d->mConfigInstance = this->getConfigInstance();
+}
+
+void DualBandWidget::initSignalSlots()
+{
+    connect(d->mConfigInstance, &ConfigInformation::onChangedUseMultiBand, this, &DualBandWidget::onChangedConfig);
+}
+
 
 void DualBandWidget::readConfigData()
 {
@@ -226,3 +239,7 @@ void DualBandWidget::setHousingThres(int value)
     ui->pcLineWidget->setHousingThres(value);
 }
 
+void DualBandWidget::onChangedConfig(GlobalDataStruct::USE_MULTIPLE_BAND)
+{
+    this->readConfigData();
+}

@@ -12,13 +12,6 @@ public:
     explicit DispAsp2Widget(QWidget *parent = nullptr);
     virtual ~DispAsp2Widget();
 
-    enum SEQUENCE_DISP_ASP_2
-    {
-        SEQUENCE_DISP_ASP_2_PUMP1,
-        SEQUENCE_DISP_ASP_2_PUMP2,
-        SEQUENCE_DISP_ASP_2_VOLUME
-    };
-
     QVariantMap getConfigParameters();
     void setConfigParameters(const QVariantMap &parameter);
 

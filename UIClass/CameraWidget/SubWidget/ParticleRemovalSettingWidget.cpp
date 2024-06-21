@@ -4,17 +4,34 @@
 
 #include "Analysis/GlobalDataStruct.h"
 
+struct ParticleRemovalSettingWidget::privateStruct
+{
+    ConfigInformation* mConfig = nullptr;
+};
 
 ParticleRemovalSettingWidget::ParticleRemovalSettingWidget(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui_ParticleRemovalSettingWidget)
+                                                                              QWidget(parent),
+                                                                              ui(new Ui_ParticleRemovalSettingWidget),
+                                                                              d(new privateStruct)
 {
     ui->setupUi(this);
+    this->initVariables();
+    this->initSignalSlots();
     this->readConfigData();
 }
 
 ParticleRemovalSettingWidget::~ParticleRemovalSettingWidget()
 {
+}
+
+void ParticleRemovalSettingWidget::initVariables()
+{
+    d->mConfig = this->getConfigInstance();
+}
+
+void ParticleRemovalSettingWidget::initSignalSlots()
+{
+    connect(d->mConfig, &ConfigInformation::onChangedPaticleRemoval, this, &ParticleRemovalSettingWidget::onChangedConfig);
 }
 
 int ParticleRemovalSettingWidget::getRemovalPaticleCount()
@@ -67,4 +84,9 @@ void ParticleRemovalSettingWidget::writeConfigData()
     configData.threshold = this->getThreshold();
 
     instance->setPaticleRemoval(configData);
+}
+
+void ParticleRemovalSettingWidget::onChangedConfig(GlobalDataStruct::PATICLE_REMOVAL)
+{
+    this->readConfigData();
 }

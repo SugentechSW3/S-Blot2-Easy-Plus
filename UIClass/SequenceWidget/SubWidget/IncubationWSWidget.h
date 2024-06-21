@@ -13,10 +13,6 @@ public:
     explicit IncubationWSWidget(QWidget *parent = nullptr);
     virtual ~IncubationWSWidget();
 
-    enum SEQUENCE_INCUBATION_WS
-    {
-        SEQUENCE_INCUBATION_WS_TIME
-    };
 
     QVariantMap getConfigParameters();
     void setConfigParameters(const QVariantMap& parameter);

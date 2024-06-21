@@ -13,6 +13,7 @@
 
 #include "Common/Io/CSettingIo.h"
 #include "Common/Io/INIFileControls/AllergyIniDataControls.h"
+#include "Common/Io/INIFileControls/FoodIntoleranceIniDataControls.h"
 #include "Common/Io/INIFileControls/GenericIniDataControls.h"
 #include "Common/Io/INIFileControls/TunningIniDataControls.h"
 #include "Common/Io/INIFileControls/CameraGenericIniDataControls.h"
@@ -892,6 +893,9 @@ int ConfigInformation::getPanelIndex(const QString& contentsName, const QString&
     {
     case (int)STANDARD_CONTETNS_LIST::ALLERGY:
         return ConfigInformation::convertQStringToQEnum(panelName, "ALLERGY_PANEL_LISTS");
+
+    case (int)STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE:
+        return ConfigInformation::convertQStringToQEnum(panelName, "FOOD_INTOLERANCE_LISTS");
     }
 
     return 0;
@@ -907,6 +911,10 @@ QStringList ConfigInformation::getPanelListFromContentsName(const QString &conte
     case (int)STANDARD_CONTETNS_LIST::ALLERGY:
         panelList = this->getAllergyPanelList();
         this->loadAllergyDatas();
+        break;
+
+    case (int) STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE:
+        panelList = this->getFoodIntoleranceList();
         break;
     }
 
@@ -963,6 +971,7 @@ QVector<GlobalDataStruct::SEQUENCE_STRUCT> ConfigInformation::saveSequence(const
 {
     QString path = QString("SEQUENCE_%1").arg(contentsName);
     CSettingIo io(path);
+    io.clear();
     io.setConfigureData("Root", "RootCount", writeData.count());
 
     for(int stepIdx = 0; stepIdx < writeData.count(); stepIdx++)
@@ -1072,7 +1081,9 @@ void ConfigInformation::setCurrentContents(const QString& contents)
         return;
 #endif
 
-    auto contentsProtocol = this->writeReadProtocol(contents, false, TUNING_DATA_GLOBAL_LAST_SELECTED_CONTENTS).toUtf8();
+    auto contentsIdx = ConfigInformation::getContentsEnumFromName(d->mSelectedContents);
+    auto contentsProtocol = this->writeWriteProtocol(QString(""), false, TUNING_DATA_GLOBAL_LAST_SELECTED_CONTENTS, contentsIdx).toUtf8();
+
 
     TunningIniDataControls tunningIniDataControls;
     tunningIniDataControls.writeSelectedContents(contents);
@@ -1086,7 +1097,7 @@ void ConfigInformation::setCurrentContents(const QString& contents)
     emit onChangedHousingROI(d->mContentsStatus[d->mSelectedContents].stripSettings.housingROI);
     emit onChangedIntensity(d->mContentsStatus[d->mSelectedContents].stripSettings.intensity);
     emit onChangedPaticleRemoval(d->mContentsStatus[d->mSelectedContents].stripSettings.particleRemoval);
-    emit onChangedUseBoxCarAnalaysis(d->mContentsStatus[d->mSelectedContents].stripSettings.boxCarAnalaysis);
+    emit onChangedBoxCarAnalaysis(d->mContentsStatus[d->mSelectedContents].stripSettings.boxCarAnalaysis);
     emit onChangedUseBoxCarBandGap(d->mContentsStatus[d->mSelectedContents].stripSettings.boxCarBandGap);
     emit onChangedUseMultiBand(d->mContentsStatus[d->mSelectedContents].stripSettings.multipleBandData);
     emit onChangedIsUseMultiBand(d->mContentsStatus[d->mSelectedContents].isMultiBand);
@@ -1246,6 +1257,19 @@ QStringList ConfigInformation::getAllergyPanelList() const
     return panelList;
 }
 
+QStringList ConfigInformation::getFoodIntoleranceList() const
+{
+    QStringList panelList;
+
+    for(int i = FOOD_INTOLERANCE_LISTS_NONE + 1 ; i< FOOD_INTOLERANCE_END_OF_PANEL ; i++)
+    {
+        auto panelName = this->convertQEnumToQString(i, QString("FOOD_INTOLERANCE_LISTS"));
+        panelList << panelName;
+    }
+
+    return panelList;
+}
+
 QVector<QString> ConfigInformation::getStripNameList(const QString& contents, const QString& panelName)
 {
     auto selecteContetns = d->mContentsStatus[contents];
@@ -1283,179 +1307,44 @@ QVector<QString> ConfigInformation::getCurrentStripSecondNameList(const QString&
 
 void ConfigInformation::readHousingROI(QString contentsName)
 {
-    auto x1 = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_HOUSING_ROI_X1).toUtf8();
-    auto x2 = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_HOUSING_ROI_X2).toUtf8();
-    auto y1 = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_HOUSING_ROI_Y1).toUtf8();
-    auto y2 = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_HOUSING_ROI_Y2).toUtf8();
-
-    if(x1.isEmpty() == true)
-        return;
-
-    if(x2.isEmpty() == true)
-        return;
-
-    if(y1.isEmpty() == true)
-        return;
-
-    if(y2.isEmpty() == true)
-        return;
-
-
-    d->mSerialNetwork->writeQueuedData(x1);
-    d->mSerialNetwork->writeQueuedData(x2);
-    d->mSerialNetwork->writeQueuedData(y1);
-    d->mSerialNetwork->writeQueuedData(y2);
+    auto data = this->readHousingROIIniData(contentsName);
+    d->mContentsStatus[contentsName].stripSettings.housingROI = data;
 }
 
 void ConfigInformation::readIntensity(QString contentsName)
 {
-    auto paticle = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_INTENSITY_PATICLE).toUtf8();
-    auto band = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_INTENSITY_BAND).toUtf8();
-    auto background = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_INTENSITY_BACKGROUND).toUtf8();
-    auto white = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_INTENSITY_WHITE).toUtf8();
-
-    if(paticle.isEmpty() == true)
-        return;
-
-    if(band.isEmpty() == true)
-        return;
-
-    if(background.isEmpty() == true)
-        return;
-
-    if(white.isEmpty() == true)
-        return;
-
-    d->mSerialNetwork->writeQueuedData(paticle);
-    d->mSerialNetwork->writeQueuedData(band);
-    d->mSerialNetwork->writeQueuedData(background);
-    d->mSerialNetwork->writeQueuedData(white);
+    auto data = this->readIntensityIniData(contentsName);
+    d->mContentsStatus[contentsName].stripSettings.intensity = data;
 }
 
 void ConfigInformation::readPaticleRemoval(QString contentsName)
 {
-    auto paticle = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_PATICLE_REMOVAL_REMOVAL_PATICLE).toUtf8();
-    auto average = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_PATICLE_REMOVAL_AVERAGE_PATICLE).toUtf8();
-    auto threshold = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_PATICLE_REMOVAL_THRESHOLD).toUtf8();
-
-    if(paticle.isEmpty() == true)
-        return;
-
-    if(average.isEmpty() == true)
-        return;
-
-    if(threshold.isEmpty() == true)
-        return;
-
-    d->mSerialNetwork->writeQueuedData(paticle);
-    d->mSerialNetwork->writeQueuedData(average);
-    d->mSerialNetwork->writeQueuedData(threshold);
+    auto data = this->readPaticleRemovalIniData(contentsName);
+    d->mContentsStatus[contentsName].stripSettings.particleRemoval = data;
 }
 
 void ConfigInformation::readBoxCarAnalysisSetting(QString contentsName)
 {
-    auto width = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_BOX_CAR_WIDTH).toUtf8();
-    auto height = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_BOX_CAR_HEIGHT).toUtf8();
-    auto xStart = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_BOX_CAR_X_START).toUtf8();
-    auto xRange = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_BOX_CAR_X_RANGE).toUtf8();
-    auto pcThres = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_BOX_CAR_PC_THRES).toUtf8();
-    auto housingThres = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_BOX_CAR_HOUSING_THRES).toUtf8();
-    auto bandGapCount = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_BAND_GAP_COUNT).toUtf8();
+    auto data = this->readBoxcarAnalysisIniData(contentsName);
+    d->mContentsStatus[contentsName].stripSettings.boxCarAnalaysis = data;
 
-    if(width.isEmpty() == true)
-        return;
-
-    if(height.isEmpty() == true)
-        return;
-
-    if(xStart.isEmpty() == true)
-        return;
-
-    if(xRange.isEmpty() == true)
-        return;
-
-    if(pcThres.isEmpty() == true)
-        return;
-
-    if(housingThres.isEmpty() == true)
-        return;
-
-    if(bandGapCount.isEmpty() == true)
-        return;
-
-    d->mSerialNetwork->writeQueuedData(width);
-    d->mSerialNetwork->writeQueuedData(height);
-    d->mSerialNetwork->writeQueuedData(xStart);
-    d->mSerialNetwork->writeQueuedData(xRange);
-    d->mSerialNetwork->writeQueuedData(pcThres);
-    d->mSerialNetwork->writeQueuedData(housingThres);
-    d->mSerialNetwork->writeQueuedData(bandGapCount);
+    if(d->mContentsStatus[contentsName].stripSettings.boxCarAnalaysis.boxCarbandCount == 0)
+        emit onTuningDataMissing(contentsName);
 }
 
 void ConfigInformation::readMultiBand(const QString& contentsName)
 {
-    auto isMultiBand = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_USE_MULTI_BAND).toUtf8();
+    auto isUseMultiBand = this->readUseMultiBandIniData(contentsName);
+    d->mContentsStatus[contentsName].isMultiBand = isUseMultiBand;
 
-    auto bandBlock2XStart = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_MULTIPLE_BAND_X2_START).toUtf8();
-    auto bandBlock3XStart = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_MULTIPLE_BAND_X3_START).toUtf8();
-    auto bandBlock4XStart = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_MULTIPLE_BAND_X4_START).toUtf8();
-
-    auto multiBandPcThres = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_MULTI_BAND_PC_THRES).toUtf8();
-
-    auto pcXEnd = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_PC_X_END).toUtf8();
-    auto bandBlock2XEnd = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_MULTIPLE_BAND_X2_GAP).toUtf8();
-    auto bandBlock3XEnd = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_MULTIPLE_BAND_X3_GAP).toUtf8();
-    auto bandBlock4XEnd = this->writeReadProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_MULTIPLE_BAND_X4_GAP).toUtf8();
-
-
-    if(isMultiBand.isEmpty() == true)
-        return;
-
-    if(bandBlock2XStart.isEmpty() == true)
-        return;
-
-    if(bandBlock3XStart.isEmpty() == true)
-        return;
-
-    if(bandBlock4XStart.isEmpty() == true)
-        return;
-
-    if(multiBandPcThres.isEmpty() == true)
-        return;
-
-    if(pcXEnd.isEmpty() == true)
-        return;
-
-    if(bandBlock2XEnd.isEmpty() == true)
-        return;
-
-    if(bandBlock3XEnd.isEmpty() == true)
-        return;
-
-    if(bandBlock4XEnd.isEmpty() == true)
-        return;
-
-    d->mSerialNetwork->writeQueuedData(isMultiBand);
-
-    d->mSerialNetwork->writeQueuedData(bandBlock2XStart);
-    d->mSerialNetwork->writeQueuedData(bandBlock3XStart);
-    d->mSerialNetwork->writeQueuedData(bandBlock4XStart);
-
-    d->mSerialNetwork->writeQueuedData(multiBandPcThres);
-
-    d->mSerialNetwork->writeQueuedData(pcXEnd);
-    d->mSerialNetwork->writeQueuedData(bandBlock2XEnd);
-    d->mSerialNetwork->writeQueuedData(bandBlock3XEnd);
-    d->mSerialNetwork->writeQueuedData(bandBlock4XEnd);
+    auto data = this->readMultiBandIniData(contentsName);
+    d->mContentsStatus[contentsName].stripSettings.multipleBandData = data;
 }
 
 void ConfigInformation::readBandGaps(QString contentsName, int count)
 {
-    for(int i =0; i < count; i++)
-    {
-        auto idxProtocol = this->writeReadProtocol(contentsName, true, TUNING_DATA_CONTENTS_BOX_CAR_BAND_GAP_IDX + i).toUtf8();
-        d->mSerialNetwork->writeQueuedData(idxProtocol);
-    }
+    auto data = this->readBoxcarBandGapIniData(contentsName);
+    d->mContentsStatus[contentsName].stripSettings.boxCarBandGap.boxCarBandGap = data;
 }
 
 void ConfigInformation::readCameraLightSetting()
@@ -1592,6 +1481,10 @@ void ConfigInformation::setPanelList(QString contentsName)
     case (int)STANDARD_CONTETNS_LIST::ALLERGY:
         d->mContentsStatus[contentsName].panelList = this->getAllergyPanelList();
         break;
+
+    case (int)STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE:
+        d->mContentsStatus[contentsName].panelList = this->getFoodIntoleranceList();
+        break;
     }
 }
 
@@ -1603,6 +1496,10 @@ void ConfigInformation::readStripSetting(QString contentsName)
     {
     case (int)STANDARD_CONTETNS_LIST::ALLERGY:
         this->setAllergySampleAndStripCount();
+        break;
+
+    case (int)STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE:
+        this->setFoodIntoleranceSampleAndStripCount();
         break;
 
     default:
@@ -1623,254 +1520,56 @@ void ConfigInformation::setAllergySampleAndStripCount()
     ini.writeStripCount(d->mContentsStatus[contentsName].stripCount);
 }
 
+void ConfigInformation::setFoodIntoleranceSampleAndStripCount()
+{
+    auto contentsName = ConfigInformation::convertQEnumToQString((int)STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE, "STANDARD_CONTETNS_LIST");
+
+    d->mContentsStatus[contentsName].stripCount = MAX_STRIP_COUNT;
+
+    FoodIntoleranceIniDataControls ini;
+    ini.writeStripCount(d->mContentsStatus[contentsName].stripCount);
+}
+
 void ConfigInformation::writeHousingROI(QString contentsName)
 {
-    GlobalDataStruct::HOUSING_ROI roi;
-
-    roi.x1 = d->mContentsStatus[contentsName].stripSettings.housingROI.x1;
-    roi.x2 = d->mContentsStatus[contentsName].stripSettings.housingROI.x2;
-    roi.y1 = d->mContentsStatus[contentsName].stripSettings.housingROI.y1;
-    roi.y2 = d->mContentsStatus[contentsName].stripSettings.housingROI.y2;
-
-    auto x1Protocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_HOUSING_ROI_X1, roi.x1).toUtf8();
-    auto x2Protocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_HOUSING_ROI_X2, roi.x2).toUtf8();
-    auto y1Protocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_HOUSING_ROI_Y1, roi.y1).toUtf8();
-    auto y2Protocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_HOUSING_ROI_Y2, roi.y2).toUtf8();
-
-    if(x1Protocol.isEmpty() == true)
-        return;
-
-    if(x2Protocol.isEmpty() == true)
-        return;
-
-    if(y1Protocol.isEmpty() == true)
-        return;
-
-    if(y2Protocol.isEmpty() == true)
-        return;
-
-    this->writeHousingROIIniData(contentsName, roi);
-
-    d->mSerialNetwork->writeQueuedData(x1Protocol);
-    d->mSerialNetwork->writeQueuedData(x2Protocol);
-    d->mSerialNetwork->writeQueuedData(y1Protocol);
-    d->mSerialNetwork->writeQueuedData(y2Protocol);
-
+    this->writeHousingROIIniData(contentsName, d->mContentsStatus[contentsName].stripSettings.housingROI);
     emit onChangedHousingROI(d->mContentsStatus[contentsName].stripSettings.housingROI);
 }
 
 void ConfigInformation::writeIntensity(QString contentsName)
 {
-    GlobalDataStruct::INTENSITY intensityOption;
-
-    intensityOption.paticle = d->mContentsStatus[contentsName].stripSettings.intensity.paticle;
-    intensityOption.band = d->mContentsStatus[contentsName].stripSettings.intensity.band;
-    intensityOption.background = d->mContentsStatus[contentsName].stripSettings.intensity.background;
-    intensityOption.white = d->mContentsStatus[contentsName].stripSettings.intensity.white;
-
-    auto paticleProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_INTENSITY_PATICLE, intensityOption.paticle).toUtf8();
-    auto bandProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_INTENSITY_BAND, intensityOption.band).toUtf8();
-    auto backgroundProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_INTENSITY_BACKGROUND, intensityOption.background).toUtf8();
-    auto whiteProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_INTENSITY_WHITE, intensityOption.white).toUtf8();
-
-    if(paticleProtocol.isEmpty() == true)
-        return;
-
-    if(bandProtocol.isEmpty() == true)
-        return;
-
-    if(backgroundProtocol.isEmpty() == true)
-        return;
-
-    if(whiteProtocol.isEmpty() == true)
-        return;
-
-    this->writeIntensityIniData(contentsName, intensityOption);
-
-    d->mSerialNetwork->writeQueuedData(paticleProtocol);
-    d->mSerialNetwork->writeQueuedData(bandProtocol);
-    d->mSerialNetwork->writeQueuedData(backgroundProtocol);
-    d->mSerialNetwork->writeQueuedData(whiteProtocol);
-
+    this->writeIntensityIniData(contentsName, d->mContentsStatus[contentsName].stripSettings.intensity);
     emit onChangedIntensity(d->mContentsStatus[contentsName].stripSettings.intensity);
 }
 
 void ConfigInformation::writePaticleRemoval(QString contentsName)
 {
-    GlobalDataStruct::PATICLE_REMOVAL removal;
-
-    removal.removalPaticle = d->mContentsStatus[contentsName].stripSettings.particleRemoval.removalPaticle;
-    removal.averagePaticle = d->mContentsStatus[contentsName].stripSettings.particleRemoval.averagePaticle;
-    removal.threshold = d->mContentsStatus[contentsName].stripSettings.particleRemoval.threshold;
-
-    auto removalPaticleProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_PATICLE_REMOVAL_REMOVAL_PATICLE, removal.removalPaticle).toUtf8();
-    auto averagePaticleProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_PATICLE_REMOVAL_AVERAGE_PATICLE, removal.averagePaticle).toUtf8();
-    auto thresholdProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_PATICLE_REMOVAL_THRESHOLD, removal.threshold).toUtf8();
-
-    this->writePaticleRemovalIniData(contentsName, removal);
-
-    d->mSerialNetwork->writeQueuedData(removalPaticleProtocol);
-    d->mSerialNetwork->writeQueuedData(averagePaticleProtocol);
-    d->mSerialNetwork->writeQueuedData(thresholdProtocol);
-
+    this->writePaticleRemovalIniData(contentsName, d->mContentsStatus[contentsName].stripSettings.particleRemoval);
     emit onChangedPaticleRemoval(d->mContentsStatus[contentsName].stripSettings.particleRemoval);
 }
 
 void ConfigInformation::writeBoxCarAnalysisSetting(QString contentsName)
 {
-    GlobalDataStruct::USE_BOXCAR_ANALYSIS analysisData;
-
-    analysisData.width  = d->mContentsStatus[contentsName].stripSettings.boxCarAnalaysis.width;
-    analysisData.height = d->mContentsStatus[contentsName].stripSettings.boxCarAnalaysis.height;
-    analysisData.xStart = d->mContentsStatus[contentsName].stripSettings.boxCarAnalaysis.xStart;
-    analysisData.xRange = d->mContentsStatus[contentsName].stripSettings.boxCarAnalaysis.xRange;
-    analysisData.pcThres = d->mContentsStatus[contentsName].stripSettings.boxCarAnalaysis.pcThres;
-    analysisData.housingThres = d->mContentsStatus[contentsName].stripSettings.boxCarAnalaysis.housingThres;
-    analysisData.boxCarbandCount = d->mContentsStatus[contentsName].stripSettings.boxCarAnalaysis.boxCarbandCount;
-
-    auto widthProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_BOX_CAR_WIDTH, analysisData.width).toUtf8();
-    auto heightProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_BOX_CAR_HEIGHT, analysisData.height).toUtf8();
-    auto xStartProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_BOX_CAR_X_START, analysisData.xStart).toUtf8();
-    auto xRangeProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_BOX_CAR_X_RANGE, analysisData.xRange).toUtf8();
-    auto pcThresProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_BOX_CAR_PC_THRES, analysisData.pcThres).toUtf8();
-    auto housingThresProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_BOX_CAR_HOUSING_THRES, analysisData.housingThres).toUtf8();
-    auto boxCarBandCountProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_BAND_GAP_COUNT, analysisData.boxCarbandCount).toUtf8();
-
-    if(widthProtocol.isEmpty() == true)
-        return;
-
-    if(heightProtocol.isEmpty() == true)
-        return;
-
-    if(xStartProtocol.isEmpty() == true)
-        return;
-
-    if(xRangeProtocol.isEmpty() == true)
-        return;
-
-    if(pcThresProtocol.isEmpty() == true)
-        return;
-
-    if(housingThresProtocol.isEmpty() == true)
-        return;
-
-    if(boxCarBandCountProtocol.isEmpty() == true)
-        return;
-
-
-    this->writeBoxcarAnalysisIniData(contentsName, analysisData);
-
-    d->mSerialNetwork->writeQueuedData(widthProtocol);
-    d->mSerialNetwork->writeQueuedData(heightProtocol);
-    d->mSerialNetwork->writeQueuedData(xStartProtocol);
-    d->mSerialNetwork->writeQueuedData(xRangeProtocol);
-    d->mSerialNetwork->writeQueuedData(pcThresProtocol);
-    d->mSerialNetwork->writeQueuedData(housingThresProtocol);
-    d->mSerialNetwork->writeQueuedData(boxCarBandCountProtocol);
-
-    emit onChangedUseBoxCarAnalaysis(d->mContentsStatus[contentsName].stripSettings.boxCarAnalaysis);
+    this->writeBoxcarAnalysisIniData(contentsName, d->mContentsStatus[contentsName].stripSettings.boxCarAnalaysis);
+    emit onChangedBoxCarAnalaysis(d->mContentsStatus[contentsName].stripSettings.boxCarAnalaysis);
 }
 
 void ConfigInformation::writeBoxCarBandGapSetting(QString contentsName)
 {
-    QVector<int> bandgap = d->mContentsStatus[contentsName].stripSettings.boxCarBandGap.boxCarBandGap;
-    QVector<QByteArray> bandgapProtocol;
-
-    for(int i = 0; i <  bandgap.count(); i++)
-    {
-        bandgapProtocol.push_back(this->writeWriteProtocol(contentsName, true, TUNING_DATA_CONTENTS_BOX_CAR_BAND_GAP_IDX + i, bandgap[i]).toUtf8());
-
-        if(bandgapProtocol[i].isEmpty() == true)
-            return;
-    }
-
-    this->writeBoxcarBandGapIniData(contentsName, bandgap);
-
-    for(int i = 0; i < bandgap.count(); i++)
-        d->mSerialNetwork->writeQueuedData(bandgapProtocol[i]);
-
-
+    this->writeBoxcarBandGapIniData(contentsName, d->mContentsStatus[contentsName].stripSettings.boxCarBandGap.boxCarBandGap);
     emit onChangedUseBoxCarBandGap(d->mContentsStatus[contentsName].stripSettings.boxCarBandGap);
 }
 
 void ConfigInformation::writeMultiBandSetting(QString contentsName)
 {
-    GlobalDataStruct::USE_MULTIPLE_BAND multiBand;
-
-    multiBand.bandBlock2XStart = d->mContentsStatus[contentsName].stripSettings.multipleBandData.bandBlock2XStart;
-    multiBand.bandBlock3XStart = d->mContentsStatus[contentsName].stripSettings.multipleBandData.bandBlock3XStart;
-    multiBand.bandBlock4XStart = d->mContentsStatus[contentsName].stripSettings.multipleBandData.bandBlock4XStart;
-
-    multiBand.mutiplePcThres = d->mContentsStatus[contentsName].stripSettings.multipleBandData.mutiplePcThres;
-
-    multiBand.pcXGap = d->mContentsStatus[contentsName].stripSettings.multipleBandData.pcXGap;
-    multiBand.bandBlock2XGap = d->mContentsStatus[contentsName].stripSettings.multipleBandData.bandBlock2XGap;
-    multiBand.bandBlock3XGap = d->mContentsStatus[contentsName].stripSettings.multipleBandData.bandBlock3XGap;
-    multiBand.bandBlock4XGap = d->mContentsStatus[contentsName].stripSettings.multipleBandData.bandBlock4XGap;
-
-    auto multipleX2StartProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_MULTIPLE_BAND_X2_START, multiBand.bandBlock2XStart).toUtf8();
-    auto multipleX3StartProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_MULTIPLE_BAND_X3_START, multiBand.bandBlock3XStart).toUtf8();
-    auto multipleX4StartProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_MULTIPLE_BAND_X4_START, multiBand.bandBlock4XStart).toUtf8();
-
-    auto multiThresProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_MULTI_BAND_PC_THRES, multiBand.mutiplePcThres).toUtf8();
-
-    auto pcXEndPosProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_PC_X_END, multiBand.pcXGap).toUtf8();
-    auto multipleX2EndPosProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_MULTIPLE_BAND_X2_GAP, multiBand.bandBlock2XGap).toUtf8();
-    auto multipleX3EndPosProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_MULTIPLE_BAND_X3_GAP, multiBand.bandBlock3XGap).toUtf8();
-    auto multipleX4EndPosProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_MULTIPLE_BAND_X4_GAP, multiBand.bandBlock4XGap).toUtf8();
-
-    if(multipleX2StartProtocol.isEmpty())
-        return;
-
-    if(multipleX3StartProtocol.isEmpty())
-        return;
-
-    if(multipleX4StartProtocol.isEmpty())
-        return;
-
-    if(multiThresProtocol.isEmpty())
-        return;
-
-    if(pcXEndPosProtocol.isEmpty())
-        return;
-
-    if(multipleX2EndPosProtocol.isEmpty())
-        return;
-
-    if(multipleX3EndPosProtocol.isEmpty())
-        return;
-
-    if(multipleX4EndPosProtocol.isEmpty())
-        return;
-
-    this->writeMultiBandIniData(contentsName, multiBand);
-
-    d->mSerialNetwork->writeQueuedData(multipleX2StartProtocol);
-    d->mSerialNetwork->writeQueuedData(multipleX3StartProtocol);
-    d->mSerialNetwork->writeQueuedData(multipleX4StartProtocol);
-
-    d->mSerialNetwork->writeQueuedData(multiThresProtocol);
-
-    d->mSerialNetwork->writeQueuedData(pcXEndPosProtocol);
-    d->mSerialNetwork->writeQueuedData(multipleX2EndPosProtocol);
-    d->mSerialNetwork->writeQueuedData(multipleX3EndPosProtocol);
-    d->mSerialNetwork->writeQueuedData(multipleX4EndPosProtocol);
-
+    this->writeMultiBandIniData(contentsName, d->mContentsStatus[contentsName].stripSettings.multipleBandData);
     emit onChangedUseMultiBand(d->mContentsStatus[contentsName].stripSettings.multipleBandData);
 }
 
 void ConfigInformation::writeUseMultiBand(QString contentsName)
 {
-    auto multiband = d->mContentsStatus[contentsName].isMultiBand;
-    auto multiBandProtocol = this->writeWriteProtocol(contentsName, false, TUNING_DATA_CONTENTS_ANALYSIS_USE_MULTI_BAND, multiband).toUtf8();
-
-    if(multiBandProtocol.isEmpty() == true)
-        return;
-
-    this->writeUseMultiBandIniData(contentsName, multiband);
-
-    d->mSerialNetwork->writeQueuedData(multiBandProtocol);
-    emit onChangedIsUseMultiBand(multiband);
+    this->writeUseMultiBandIniData(contentsName, d->mContentsStatus[contentsName].isMultiBand);
+    emit onChangedIsUseMultiBand(d->mContentsStatus[contentsName].isMultiBand);
 }
 
 GlobalDataStruct::HOUSING_ROI ConfigInformation::readHousingROIIniData(const QString& contentsName)
@@ -1882,9 +1581,17 @@ GlobalDataStruct::HOUSING_ROI ConfigInformation::readHousingROIIniData(const QSt
     switch(currentContents)
     {
     case (int)STANDARD_CONTETNS_LIST::ALLERGY:
+    {
         AllergyIniDataControls allergyControls;
         roi = allergyControls.readHousingROI();
-        break;
+    }   break;
+
+    case (int)STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE:
+    {
+        FoodIntoleranceIniDataControls foodIntoleranceControls;
+        roi = foodIntoleranceControls.readHousingROI();
+    }break;
+
     }
 
     return roi;
@@ -1899,10 +1606,16 @@ GlobalDataStruct::INTENSITY ConfigInformation::readIntensityIniData(const QStrin
     switch(currentContents)
     {
     case (int)STANDARD_CONTETNS_LIST::ALLERGY:
-
+    {
         AllergyIniDataControls allergyControls;
         intensity = allergyControls.readIntensityOption();
-        break;
+    }   break;
+
+    case (int)STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE:
+    {
+        FoodIntoleranceIniDataControls foodIntoleranceControls;
+        intensity = foodIntoleranceControls.readIntensityOption();
+    }break;
 
     }
 
@@ -1918,10 +1631,16 @@ GlobalDataStruct::PATICLE_REMOVAL ConfigInformation::readPaticleRemovalIniData(c
     switch(currentContents)
     {
     case (int)STANDARD_CONTETNS_LIST::ALLERGY:
-
+    {
         AllergyIniDataControls allergyControls;
         removal = allergyControls.readPaticleRemoval();
-        break;
+    }break;
+
+    case (int)STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE:
+    {
+        FoodIntoleranceIniDataControls foodIntoleranceControls;
+        removal = foodIntoleranceControls.readPaticleRemoval();
+    }break;
 
     }
 
@@ -1937,10 +1656,16 @@ GlobalDataStruct::USE_BOXCAR_ANALYSIS ConfigInformation::readBoxcarAnalysisIniDa
     switch(currentContents)
     {
     case (int)STANDARD_CONTETNS_LIST::ALLERGY:
-
+    {
         AllergyIniDataControls allergyControls;
         boxCarAnalysis = allergyControls.readBoxCarAnalysis();
-        break;
+    }break;
+
+    case (int)STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE:
+    {
+        FoodIntoleranceIniDataControls foodIntoleranceControls;
+        boxCarAnalysis = foodIntoleranceControls.readBoxCarAnalysis();
+    }break;
 
     }
 
@@ -1956,10 +1681,16 @@ QVector<int> ConfigInformation::readBoxcarBandGapIniData(const QString& contents
     switch(currentContents)
     {
     case (int)STANDARD_CONTETNS_LIST::ALLERGY:
-
+    {
         AllergyIniDataControls allergyControls;
         bandGap = allergyControls.readBoxCarBandGap();
-        break;
+    }break;
+
+    case (int)STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE:
+    {
+        FoodIntoleranceIniDataControls foodIntoleranceControls;
+        bandGap = foodIntoleranceControls.readBoxCarBandGap();
+    }break;
 
     }
 
@@ -1975,10 +1706,16 @@ GlobalDataStruct::USE_MULTIPLE_BAND ConfigInformation::readMultiBandIniData(cons
     switch(currentContents)
     {
     case (int)STANDARD_CONTETNS_LIST::ALLERGY:
-
+    {
         AllergyIniDataControls allergyControls;
         multibandData = allergyControls.readMultiBandData();
-        break;
+    }   break;
+
+    case (int)STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE:
+    {
+        FoodIntoleranceIniDataControls foodIntoleranceControls;
+        multibandData = foodIntoleranceControls.readMultiBandData();
+    }
 
     }
 
@@ -1994,10 +1731,16 @@ bool ConfigInformation::readUseMultiBandIniData(const QString& contentsName)
     switch(currentContents)
     {
     case (int)STANDARD_CONTETNS_LIST::ALLERGY:
-
+    {
         AllergyIniDataControls allergyControls;
         useMultiBand = allergyControls.readUseMultiBand();
-        break;
+    }break;
+
+    case (int)STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE:
+    {
+        FoodIntoleranceIniDataControls foodIntoleranceControls;
+        useMultiBand = foodIntoleranceControls.readUseMultiBand();
+    }break;
 
     }
 
@@ -2011,9 +1754,17 @@ void ConfigInformation::writeHousingROIIniData(const QString& contentsName, cons
     switch(currentContetns)
     {
     case (int)STANDARD_CONTETNS_LIST::ALLERGY:
+    {
         AllergyIniDataControls allergyControls;
         allergyControls.writeHousingROI(roi);
-        break;
+    }break;
+
+    case (int)STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE:
+    {
+        FoodIntoleranceIniDataControls foodIntoleranceControls;
+        foodIntoleranceControls.writeHousingROI(roi);
+    }break;
+
     }
 }
 
@@ -2024,9 +1775,17 @@ void ConfigInformation::writeIntensityIniData(const QString& contentsName, const
     switch(currentContetns)
     {
     case (int)STANDARD_CONTETNS_LIST::ALLERGY:
+    {
         AllergyIniDataControls allergyControls;
         allergyControls.writeIntensityOption(intensity);
-        break;
+    }break;
+
+    case (int)STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE:
+    {
+        FoodIntoleranceIniDataControls foodIntoleranceControls;
+        foodIntoleranceControls.writeIntensityOption(intensity);
+    }break;
+
     }
 
 }
@@ -2038,9 +1797,17 @@ void ConfigInformation::writePaticleRemovalIniData(const QString& contentsName, 
     switch(currentContetns)
     {
     case (int)STANDARD_CONTETNS_LIST::ALLERGY:
+    {
         AllergyIniDataControls allergyControls;
         allergyControls.writeParticleRemoval(removal);
-        break;
+    }break;
+
+    case (int)STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE:
+    {
+        FoodIntoleranceIniDataControls foodIntoleranceControls;
+        foodIntoleranceControls.writeParticleRemoval(removal);
+    }break;
+
     }
 }
 
@@ -2051,9 +1818,17 @@ void ConfigInformation::writeBoxcarAnalysisIniData(const QString& contentsName, 
     switch(currentContetns)
     {
     case (int)STANDARD_CONTETNS_LIST::ALLERGY:
+    {
         AllergyIniDataControls allergyControls;
         allergyControls.writeBoxCarAnalysis(boxcarSetting);
-        break;
+    }break;
+
+    case (int)STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE:
+    {
+        FoodIntoleranceIniDataControls foodIntoleranceControls;
+        foodIntoleranceControls.writeBoxCarAnalysis(boxcarSetting);
+    }break;
+
     }
 }
 
@@ -2064,9 +1839,17 @@ void ConfigInformation::writeBoxcarBandGapIniData(const QString& contentsName, c
     switch(currentContetns)
     {
     case (int)STANDARD_CONTETNS_LIST::ALLERGY:
+    {
         AllergyIniDataControls allergyControls;
         allergyControls.writeBoxCarBandGap(bandGap);
-        break;
+    }break;
+
+    case (int)STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE:
+    {
+        FoodIntoleranceIniDataControls foodIntoleranceControls;
+        foodIntoleranceControls.writeBoxCarBandGap(bandGap);
+    }break;
+
     }
 }
 
@@ -2077,9 +1860,17 @@ void ConfigInformation::writeMultiBandIniData(const QString& contentsName, const
     switch(currentContetns)
     {
     case (int)STANDARD_CONTETNS_LIST::ALLERGY:
+    {
         AllergyIniDataControls allergyControls;
         allergyControls.writeMultiBandData(multiBand);
-        break;
+    }break;
+
+    case (int)STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE:
+    {
+        FoodIntoleranceIniDataControls foodIntoleranceControls;
+        foodIntoleranceControls.writeMultiBandData(multiBand);
+    }break;
+
     }
 }
 
@@ -2090,9 +1881,17 @@ void ConfigInformation::writeUseMultiBandIniData(const QString& contentsName, bo
     switch(currentContetns)
     {
     case (int)STANDARD_CONTETNS_LIST::ALLERGY:
+    {
         AllergyIniDataControls allergyControls;
         allergyControls.writeUseMultiBand(isUseMultiBand);
-        break;
+    }break;
+
+    case (int)STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE:
+    {
+        FoodIntoleranceIniDataControls foodIntoleranceControls;
+        foodIntoleranceControls.writeUseMultiBand(isUseMultiBand);
+    }break;
+
     }
 }
 
@@ -2240,8 +2039,12 @@ void ConfigInformation::onWriteSeqeuenceQueue()
 
 void ConfigInformation::onReadSequenceData()
 {
+#ifndef USE_FILE_BASED_SEQUENCE
     for(auto contents : d->mContentsList)
         d->mSequenceContentsQueue.push_back(contents);
+#else
+    d->mSequenceContentsQueue.push_back(d->mContentsList.first());
+#endif
 
     this->onWriteSeqeuenceQueue();
 }
@@ -2309,7 +2112,19 @@ void ConfigInformation::onRecvSequenceData(QByteArray recvData)
 
                     if(sequenceCount == sequenceList.count())
                     {
+#ifndef USE_FILE_BASED_SEQUENCE
                         this->setSequenceList(this->getContentsNameFromEnum(contentsIdx-1) ,sequenceList);//contentsname + seqeuenceData
+#else
+                        for(auto& contentsName : d->mContentsList)
+                            this->loadSequenceFromFile(contentsName);
+
+                        for(auto& contentsName : d->mContentsList)
+                        {
+                            auto sequence = this->getSequenceList(contentsName);
+
+                            CLogWriter::printLog(QString("Sequence : %1, SequenceCount : %2").arg(contentsName).arg(sequence.count())); //psp
+                        }
+#endif
                         this->onWriteSeqeuenceQueue();
                     }
                 } break;
@@ -2483,6 +2298,7 @@ void ConfigInformation::parsingGlobalData(const QByteArray& recvData)
     case TUNING_DATA_GLOBAL_FLIP:
         d->mOptionSettings.flip = data;
         CLogWriter::printLog("TUNING_DATA_GLOBAL_FLIP");
+        this->sendDataEnd();
         break;
     }
 
@@ -2693,20 +2509,13 @@ QString ConfigInformation::writeReadProtocol(const QString& contentsName, bool, 
 {
     uchar contentsIdx = TUNING_CONTENTS_IDX_GLOBAL;
 
-    if(contentsName.isEmpty() == true)
+    if(contentsName.isEmpty())
         contentsIdx = TUNING_CONTENTS_IDX_GLOBAL;
     else
     {
-        for(int i = 0; i< d->mContentsList.count(); i++)
-        {
-            if(d->mContentsList[i].compare(contentsName) == 0)
-            {
-                contentsIdx = i + 1 + TUNING_CONTENTS_IDX_GLOBAL;
-                break;
-            }
-        }
-
-        if(contentsIdx == TUNING_CONTENTS_IDX_GLOBAL)
+        if(d->mContentsList.contains(contentsName))
+            contentsIdx = 1 + TUNING_CONTENTS_IDX_GLOBAL;
+        else
             return QString();
     }
 
@@ -2725,16 +2534,9 @@ QString ConfigInformation::writeWriteProtocol(const QString& contentsName, bool 
         contentsIdx = TUNING_CONTENTS_IDX_GLOBAL;
     else
     {
-        for(int i = 0; i< d->mContentsList.count(); i++)
-        {
-            if(d->mContentsList[i].compare(contentsName) == 0)
-            {
-                contentsIdx = i + 1 + TUNING_CONTENTS_IDX_GLOBAL;
-                break;
-            }
-        }
-
-        if(contentsIdx == TUNING_CONTENTS_IDX_GLOBAL)
+        if(d->mContentsList.contains(contentsName))
+            contentsIdx = 1 + TUNING_CONTENTS_IDX_GLOBAL;
+        else
             return QString();
     }
 
@@ -2916,10 +2718,31 @@ ConfigInformation::STRIP_COLOR ConfigInformation::getAllergyColor(int panelIdx)
         return ConfigInformation::STRIP_COLOR_NONE;
     }
 }
+
 ConfigInformation::STRIP_COLOR ConfigInformation::getAllergyColor(const QString& panelName)
 {
-    auto panelIdx = ConfigInformation::getPanelIndex("ALLERGY", panelName);
+    auto contentsName = ConfigInformation::convertQEnumToQString((int)STANDARD_CONTETNS_LIST::ALLERGY, "STANDARD_CONTETNS_LIST");
+    auto panelIdx = ConfigInformation::getPanelIndex(contentsName, panelName);
     return this->getAllergyColor(panelIdx);
+}
+
+ConfigInformation::STRIP_COLOR ConfigInformation::getFoodIntoleranceColor(int panelIdx)
+{
+    switch(panelIdx)
+    {
+    case ConfigInformation::FOOD_INTOLERANCE_LISTS::FOOD_INTOLERANCE_PANEL:
+        return ConfigInformation::STRIP_COLOR_PINK;
+
+    default:
+        return ConfigInformation::STRIP_COLOR_NONE;
+    }
+}
+
+ConfigInformation::STRIP_COLOR ConfigInformation::getFoodIntoleranceColor(const QString& panelName)
+{
+    auto contentsName = ConfigInformation::convertQEnumToQString((int)STANDARD_CONTETNS_LIST::FOOD_INTOLERANCE, "STANDARD_CONTETNS_LIST");
+    auto panelIdx = ConfigInformation::getPanelIndex(contentsName, panelName);
+    return this->getFoodIntoleranceColor(panelIdx);
 }
 
 GlobalDataStruct::LANGUAGE_LIST ConfigInformation::getDefaultLanguage()
@@ -3138,3 +2961,124 @@ QByteArray ConfigInformation::makeProcessNumber(ushort processNumber, ushort pro
 
     return sendData;
 }
+
+QVector<QByteArray> ConfigInformation::makeSequenceProtocol(const QVector<GlobalDataStruct::SEQUENCE_STRUCT>& sequenceList)
+{
+    QVector<QByteArray> sequenceProtocol;
+
+    sequenceProtocol.push_front(ConfigInformation::makeSequenceInputMode(true));
+    sequenceProtocol.append(ConfigInformation::makeSequenceCommandFromStruct(sequenceList));
+    sequenceProtocol.push_back(ConfigInformation::makeSequenceInputMode(false));
+
+    return sequenceProtocol;
+}
+
+QVector<QByteArray> ConfigInformation::makeSequenceCommandFromStruct(const QVector<GlobalDataStruct::SEQUENCE_STRUCT>& sequenceList)
+{
+    QVector<QByteArray> sequenceCommand;
+    auto config = ConfigInformation::getInstance();
+    auto contentsIdx = ConfigInformation::getContentsEnumFromName(config->getCurrentContents());
+    auto totalStepCount = sequenceList.count();
+
+    sequenceCommand.push_back(ConfigInformation::makeSequenceTotalStep(totalStepCount));
+    sequenceCommand.push_back(ConfigInformation::makeSequenceID(1, contentsIdx));
+
+
+    for(auto& step : sequenceList)
+    {
+        sequenceCommand.push_back(ConfigInformation::makeStepNumber(step.stepNumber));
+
+        for(auto i = 0 ; i< step.processData.count(); i++)
+        {
+            auto currentProcessData = step.processData[i];
+            sequenceCommand.push_back(ConfigInformation::makeProcessNumber(currentProcessData.processNumber, i));
+            sequenceCommand.push_back(ConfigInformation::makeSequenceCommandForProcessProtocol(currentProcessData));
+        }
+    }
+
+    sequenceCommand.push_back(ConfigInformation::makeStepNumber(ConfigInformation::STEP_LIST_END));
+
+    return sequenceCommand;
+}
+
+QByteArray ConfigInformation::makeSequenceCommandForProcessProtocol(const GlobalDataStruct::PROCESS_DATA& dataStruct)
+{
+    QString protocolStr;
+
+    switch(dataStruct.processNumber)
+    {
+    case ConfigInformation::PROCESS_LIST_PRIME:
+        protocolStr = WriteProtocolSequenceGenrator::writeSQProcessParameterDWordPrime1(
+            dataStruct.data[QString::number(ConfigInformation::SEQUENCE_PRIME_PUMP_CHANNEL)].toUInt(),
+            dataStruct.data[QString::number(ConfigInformation::SEQUENCE_PRIME_PUMP_TIME)].toUInt()
+            );  break;
+
+    case ConfigInformation::PROCESS_LIST_ROLL_BACK:
+        protocolStr = WriteProtocolSequenceGenrator::writeSQProcessParameterDWordRollBack1(
+            dataStruct.data[QString::number(ConfigInformation::SEQUENCE_ROLL_BACK_PUMP_CHANNEL)].toUInt(),
+            dataStruct.data[QString::number(ConfigInformation::SEQUENCE_ROLL_BACK_TIME)].toUInt()
+            );  break;
+
+    case ConfigInformation::PROCESS_LIST_DISPENSE:
+        protocolStr = WriteProtocolSequenceGenrator::writeSQProcessParameterDWordDispense1(
+            dataStruct.data[QString::number(ConfigInformation::SEQUENCE_DISPENSE_PUMP_CHANNEL)].toUInt(),
+            dataStruct.data[QString::number(ConfigInformation::SEQUENCE_DISPENSE_PUMP_VOLUME)].toUInt()
+            );  break;
+
+    case ConfigInformation::PROCESS_LIST_ASPIRATION:
+        protocolStr = WriteProtocolSequenceGenrator::writeSQProcessParameterDWordAspiration(
+            dataStruct.data[QString::number(ConfigInformation::SEQUENCE_ASPIRATION_TIME)].toUInt(),
+            dataStruct.data[QString::number(ConfigInformation::SEQUENCE_ASPIRATION_COUNT)].toUInt()
+            );  break;
+
+    case ConfigInformation::PROCESS_LIST_INCUBATION:
+        protocolStr = WriteProtocolSequenceGenrator::writeSQProcessParameterDWordIncubation(
+            dataStruct.data[QString::number(ConfigInformation::SEQUENCE_INCUBATION_TIME)].toUInt()
+            );  break;
+
+    case ConfigInformation::PROCESS_LIST_BUZZER:
+        protocolStr = WriteProtocolSequenceGenrator::writeSQProcessParameterDWordBuzzer(3);
+        break;
+
+    case ConfigInformation::PROCESS_LIST_DRY:
+        protocolStr = WriteProtocolSequenceGenrator::writeSQProcessParameterDWordDry(
+            dataStruct.data[QString::number(ConfigInformation::SEQUENCE_DRY_SPEED)].toUInt(),
+                    dataStruct.data[QString::number(ConfigInformation::SEQUENCE_HEATING_TIME)].toUInt(),
+            dataStruct.data[QString::number(ConfigInformation::SEQUENCE_DRY_TIME)].toUInt());
+        break;
+
+    case ConfigInformation::PROCESS_LIST_PAUSE:
+        break;
+
+    case ConfigInformation::PROCESS_LIST_SAMPLE_DISPENSE:
+        break;
+
+    case ConfigInformation::PROCESS_LIST_PRIME_D:
+        protocolStr = WriteProtocolSequenceGenrator::writeSQProcessParameterDwordDPrime(
+            dataStruct.data[QString::number(ConfigInformation::SEQUENCE_D_PRIME_CHANNEL)].toUInt(),
+            dataStruct.data[QString::number(ConfigInformation::SEQUENCE_D_OPTION)].toUInt(),
+            dataStruct.data[QString::number(ConfigInformation::SEQUENCE_D_VOLUME)].toUInt()
+            );  break;
+
+    case ConfigInformation::PROCESS_LIST_ROLL_BACK_D:
+        protocolStr = WriteProtocolSequenceGenrator::writeSQProcessParameterDwordDPrime(
+            dataStruct.data[QString::number(ConfigInformation::SEQUENCE_D_ROLL_BACK_CHANNEL)].toUInt(),
+            dataStruct.data[QString::number(ConfigInformation::SEQUENCE_D_ROLL_BACK_OPTION)].toUInt(),
+            dataStruct.data[QString::number(ConfigInformation::SEQUENCE_D_ROLL_BACK_DURATION)].toUInt()
+            );  break;
+
+    case ConfigInformation::PROCESS_LIST_DISPENSE_D:
+        protocolStr = WriteProtocolSequenceGenrator::writeSQProcessParameterDwordDPrime(
+            dataStruct.data[QString::number(ConfigInformation::SEQUENCE_D_DISPENSE_CHANNEL)].toUInt(),
+            dataStruct.data[QString::number(ConfigInformation::SEQUENCE_D_DISPENSE_OPTION)].toUInt(),
+            dataStruct.data[QString::number(ConfigInformation::SEQUENCE_D_DISPENSE_VOLUME)].toUInt()
+            );  break;
+    }
+
+    if(protocolStr.isEmpty() == true)
+        protocolStr = WriteProtocolSequenceGenrator::writeSQProcessNULLData();
+
+
+    return protocolStr.toUtf8();
+}
+

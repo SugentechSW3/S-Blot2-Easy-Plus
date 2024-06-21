@@ -12,7 +12,7 @@ public:
     explicit UserButtonMenu(QWidget *parent = nullptr);
     ~UserButtonMenu();
 
-    void setOfflinMode();
+    void setOfflineMode();
 
 signals:
     void onClickedWorkPlace(bool);

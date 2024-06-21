@@ -13,12 +13,6 @@ public:
     explicit AspirationWidget(QWidget *parent = nullptr);
     virtual ~AspirationWidget();
 
-    enum SEQUENCE_ASPIRATION
-    {
-        SEQUENCE_ASPIRATION_TIME,
-        SEQUENCE_ASPIRATION_COUNT
-    };
-
     QVariantMap getConfigParameters();
     void setConfigParameters(const QVariantMap &parameter);
 
