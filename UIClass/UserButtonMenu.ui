@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>UserButtonMenu</class>
+ <widget class="QWidget" name="UserButtonMenu">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1336</width>
+    <height>708</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <item row="1" column="0">
+    <widget class="QWidget" name="widgetButtonMainGroup" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>1336</width>
+       <height>515</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>1336</width>
+       <height>515</height>
+      </size>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="CustomImageButtonWidget" name="btnWorkPlace">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>580</width>
+          <height>510</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>580</width>
+          <height>510</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>SpoqaHanSans</family>
+          <pointsize>30</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>
+
+
+
+WORK PLACE</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="CustomImageButtonWidget" name="btnResultView">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>580</width>
+          <height>510</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>580</width>
+          <height>510</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>SpoqaHanSans</family>
+          <pointsize>30</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>
+
+
+
+RESULT VIEW</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QWidget" name="widgetButtonSubGroup" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>1336</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>1336</width>
+       <height>160</height>
+      </size>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <property name="leftMargin">
+       <number>40</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>40</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item row="0" column="0">
+       <widget class="CustomImageButtonWidget" name="btnReset">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>284</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>284</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>RESET</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="CustomImageButtonWidget" name="btnAutoClean">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>284</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>284</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>AUTO CLEAN</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="CustomImageButtonWidget" name="btnStripScan">
+        <property name="minimumSize">
+         <size>
+          <width>284</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>284</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>STRIP SCAN</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="CustomImageButtonWidget" name="btnConfigure">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>284</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>284</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>CONFIGURE</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="CustomImageButtonWidget" name="btnAspration">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>284</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>284</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>ASPRATION</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CustomImageButtonWidget</class>
+   <extends>QPushButton</extends>
+   <header>UIClass/CustomWidget/CustomImageButtonWidget.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

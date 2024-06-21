@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CustomPrograssImageCircleWidget</class>
+ <widget class="QWidget" name="CustomPrograssImageCircleWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>420</width>
+    <height>420</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>420</width>
+    <height>420</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>420</width>
+    <height>420</height>
+   </size>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QWidget" name="widgetOuter" native="true">
+     <property name="styleSheet">
+      <string notr="true">QWidget#widgetOuter{border-image: url(:/Image/Image/RunningStatus/progress0.png);}</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item row="0" column="0">
+       <widget class="ImageCircleWidget" name="widgetInner" native="true">
+        <layout class="QGridLayout" name="gridLayout_4">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QWidget" name="widgetBackgroundColor" native="true">
+           <property name="styleSheet">
+            <string notr="true">QWidget#widgetBackgroundColor{
+background-color: rgb(255, 255, 255, 0);
+}</string>
+           </property>
+           <widget class="Line" name="line">
+            <property name="geometry">
+             <rect>
+              <x>120</x>
+              <y>270</y>
+              <width>198</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(155, 158, 159);</string>
+            </property>
+            <property name="lineWidth">
+             <number>1</number>
+            </property>
+            <property name="midLineWidth">
+             <number>1</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+           <widget class="QLabel" name="labelTotalEta">
+            <property name="geometry">
+             <rect>
+              <x>134</x>
+              <y>280</y>
+              <width>161</width>
+              <height>25</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>SpoqaHanSans</family>
+              <pointsize>12</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(155, 158, 159);</string>
+            </property>
+            <property name="text">
+             <string>Expected time</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+           <widget class="QLabel" name="labelPercent">
+            <property name="geometry">
+             <rect>
+              <x>120</x>
+              <y>120</y>
+              <width>191</width>
+              <height>151</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>SpoqaHanSans</family>
+              <pointsize>80</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_3">
+            <property name="geometry">
+             <rect>
+              <x>305</x>
+              <y>170</y>
+              <width>41</width>
+              <height>61</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>SpoqaHanSans</family>
+              <pointsize>30</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>%</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label">
+            <property name="geometry">
+             <rect>
+              <x>130</x>
+              <y>100</y>
+              <width>161</width>
+              <height>25</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>SpoqaHanSans</family>
+              <pointsize>12</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(155, 158, 159);</string>
+            </property>
+            <property name="text">
+             <string>PROGRESS STATUS</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+           <widget class="QLabel" name="labelTime">
+            <property name="geometry">
+             <rect>
+              <x>140</x>
+              <y>300</y>
+              <width>151</width>
+              <height>36</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>SpoqaHanSans</family>
+              <pointsize>12</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ImageCircleWidget</class>
+   <extends>QWidget</extends>
+   <header>UIClass/CustomWidget/ImageCircleWidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

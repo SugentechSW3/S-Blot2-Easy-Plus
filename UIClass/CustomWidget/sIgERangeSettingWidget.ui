@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>sIgERangeSettingWidget</class>
+ <widget class="QWidget" name="sIgERangeSettingWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>254</width>
+    <height>269</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QRadioButton" name="radioClass1">
+     <property name="text">
+      <string>Class 1 : </string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QDoubleSpinBox" name="spinsIgEConditionValue1">
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="singleStep">
+      <double>0.010000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QRadioButton" name="radioClass2">
+     <property name="text">
+      <string>Class 2 : </string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QDoubleSpinBox" name="spinsIgEConditionValue2">
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="singleStep">
+      <double>0.010000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QRadioButton" name="radioClass3">
+     <property name="text">
+      <string>Class 3 : </string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QDoubleSpinBox" name="spinsIgEConditionValue3">
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="singleStep">
+      <double>0.010000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QRadioButton" name="radioClass4">
+     <property name="text">
+      <string>Class 4 : </string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QDoubleSpinBox" name="spinsIgEConditionValue4">
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="singleStep">
+      <double>0.010000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QRadioButton" name="radioClass5">
+     <property name="text">
+      <string>Class 5 : </string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QDoubleSpinBox" name="spinsIgEConditionValue5">
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="singleStep">
+      <double>0.010000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QRadioButton" name="radioClass6">
+     <property name="text">
+      <string>Class 6 : </string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QDoubleSpinBox" name="spinsIgEConditionValue6">
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="singleStep">
+      <double>0.010000000000000</double>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

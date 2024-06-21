@@ -1,0 +1,244 @@
+#ifndef HL7INTERFACEHEADER_H
+#define HL7INTERFACEHEADER_H
+
+#include <QString>
+#include <QVector>
+#include <QMap>
+
+
+//Ver 2.5
+//      1         2         3         4         5         6         7         8
+// +----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+// |    VT   |             HL7DATA(VariableLength)             |    FS   |    CR   |
+// +----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+#define HL7_START_BLOCK 0x0B //VT
+#define HL7_END_BLOCK 0x1C //FS
+#define HL7_CARRIAGE_RETURN 0x0D //CR
+
+
+const QString HL7_MSH = "MSH";
+const QString HL7_QRD = "QRD";
+const QString HL7_PID = "PID";
+const QString HL7_OBR = "OBR";
+const QString HL7_OBX = "OBX";
+
+const QString HL7_MSH_MESSAGE_TYPE_QRY_STRING = "QRY";
+const QString HL7_MSH_MESSAGE_TYPE_ADR_STRING = "ADR";
+const QString HL7_MSH_MESSAGE_TYPE_ORU_STRING = "ORU";
+
+const QString HL7_ENCODING_CHARACTERS = "^~\\&";
+const QString HL7_APPLICATION_NAME = "sblot2^sugentech";
+const QString HL7_RECEIVING_APPLICATION = "LIS";
+const QString HL7_FORMAT_CODE = "R";
+const QString HL7_PRIORITY = "I";
+const QString HL7_VALUE_TYPE = "ST";
+const QString HL7_SEPARATOR = "|";
+const QString HL7_OBSERVATION_CHAIN = "_";
+const QString HL7_OBSERVATION_SEPARATOR = "^";
+const QString HL7_PROCESSING_ID = "P";
+const QString HL7_VERSION = "2.5";
+const QString HL7_ACCEPT_ACKNOWLEDGMENT_AL = "AL";
+const QString HL7_APP_ACKNOWLEDGMENT_NE = "NE";
+
+const QString HL7_DEVICE_ID = "sblot2";
+
+
+
+//MSH|^~\&|LIS||sblot2||20200609010945||ADR^A19|일련번호|P|2.5|||AL|SU||||XXX <CR>
+//PID|1|A00000001|||홍길동|||M|||||||
+//OBR|1|A00000001||I||20200609010945||
+//PID|2|A00000002|||KIM|||F|||||||
+//OBR|2|A00000002||I||20200609010945||
+//PID|3|A00000003|||LEE|||M|||||||
+//OBR|3|A00000003||F||20200609010945||
+
+enum HL7_MSH_MESSAGE_TYPE
+{
+    HL7_MSH_MESSAGE_TYPE_NULL,
+    HL7_MSH_MESSAGE_TYPE_QRY,
+    HL7_MSH_MESSAGE_TYPE_ADR,
+    HL7_MSH_MESSAGE_TYPE_ORU
+};
+
+enum HL7_HEADER_TYPE
+{
+    HL7_HEADER_TYPE_NULL,
+    HL7_HEADER_TYPE_MSH,
+    HL7_HEADER_TYPE_QRD,
+    HL7_HEADER_TYPE_PID,
+    HL7_HEADER_TYPE_OBR,
+    HL7_HEADER_TYPE_OBX
+};
+
+enum HL7_MSH_STR_POSITION
+{
+    HL7_MSH_STR_POSITION_MSH,
+    HL7_MSH_STR_POSITION_ENCODING_CHARACTERS,
+    HL7_MSH_STR_POSITION_SENDING_DEVICE_NAME,
+    HL7_MSH_STR_POSITION_SENDING_FACILITY_NULL,
+    HL7_MSH_STR_POSITION_RECEIVING_APP,
+    HL7_MSH_STR_POSITION_RECEVING_FACILITY_NULL,
+    HL7_MSH_STR_POSITION_DATE_TIME,
+    HL7_MSH_STR_POSITION_SECURITY_NULL,
+    HL7_MSH_STR_POSITION_MESSAGE_TYPE,
+    HL7_MSH_STR_POSITION_DEVICE_ID,
+    HL7_MSH_STR_POSITION_PROCESSING_ID,
+    HL7_MSH_STR_POSITION_VERSION_ID,
+    HL7_MSH_STR_POSITION_RESERVED_NULL,
+    HL7_MSH_STR_POSITION_RESERVED2_NULL,
+    HL7_MSH_STR_POSITION_ACCEPT_ACK,
+    HL7_MSH_STR_POSITION_APPLICATION_ACK,
+    HL7_MSH_STR_POSITION_RESERVED3_NULL,
+    HL7_MSH_STR_POSITION_CHARACTER_SET_NULL,
+    HL7_MSH_STR_POSITION_RESERVED4_NULL,
+    HL7_MSH_STR_POSITION_RESERVED5_NULL
+};
+
+enum HL7_QRD_STR_POSITION
+{
+    HL7_QRD_STR_POSITION_QRD,
+    HL7_QRD_STR_POSITION_QUERY_DATE_TIME_NULL,
+    HL7_QRD_STR_POSITION_FORMAT_CODE,
+    HL7_QRD_STR_POSITION_PRIORITY,
+    HL7_QRD_STR_POSITION_QUERYID,
+    HL7_QRD_STR_POSITION_DEFER_RESP_TYPE_NULL,
+    HL7_QRD_STR_POSITION_DEFER_RESP_DATE_TIME_NULL,
+    HL7_QRD_STR_POSITION_LIMITED_REQ, //1 FIXED
+    HL7_QRD_STR_POSITION_PATIENT_ID,
+    HL7_QRD_STR_POSITION_WHAT_SUBJECT_FILTER_NULL,
+    HL7_QRD_STR_POSITION_WHAT_DEPARTMENT_DATA_CODE_NULL,
+    HL7_QRD_STR_POSITION_WHAT_DATA_CODE_VALUE_QUAL_NULL,
+    HL7_QRD_STR_POSITION_RESERVED_NULL
+};
+
+enum HL7_PID_STR_POSITION
+{
+    HL7_PID_STR_POSITION_PID,
+    HL7_PID_STR_POSITION_INDEX,
+    HL7_PID_STR_POSITION_PATIENT_ID,
+    HL7_PID_STR_POSITION_RESERVED1,
+    HL7_PID_STR_POSITION_RESERVED2,
+    HL7_PID_STR_POSITION_PATIENT_NAME, //FirstName^LastName
+    HL7_PID_STR_POSITION_RESERVED3,
+    HL7_PID_STR_POSITION_BIRTH_DATE, //YYYYMMDD
+    HL7_PID_STR_POSITION_SEX,  //F,M, OR U
+    HL7_PID_STR_POSITION_RESERVED4,
+    HL7_PID_STR_POSITION_RESERVED5,
+    HL7_PID_STR_POSITION_PATIENT_ADDRESS,
+    HL7_PID_STR_POSITION_RESERVED6,
+    HL7_PID_STR_POSITION_PHONE_NUMBER,
+    HL7_PID_STR_POSITION_RESERVED7,
+    HL7_PID_STR_POSITION_RESERVED8
+};
+
+enum HL7_OBR_STR_POSITION
+{
+    HL7_OBR_STR_POSITION_OBR,
+    HL7_OBR_STR_POSITION_INDEX,
+    HL7_OBR_STR_POSITION_PATIENT_ID,
+    HL7_OBR_STR_POSITION_FILLER_ORDER_NUMBER_NULL,
+    HL7_OBR_STR_POSITION_PANEL_INITIAL,
+    HL7_OBR_STR_POSITION_PRIORITY_OBR_NULL,
+    HL7_OBR_STR_POSITION_REQ_DATE_TIME_NULL,
+    HL7_OBR_STR_POSITION_OBSERVATION_DATE_TIME,
+    HL7_OBR_STR_POSITION_RESERVED1_NULL,
+    HL7_OBR_STR_POSITION_RESERVED2_NULL,
+    HL7_OBR_STR_POSITION_RESERVED3_NULL
+};
+
+enum HL7_OBX_STR_POSITION
+{
+    HL7_OBX_STR_POSITION_OBX,
+    HL7_OBX_STR_POSITION_BAND_NUMBER, // NULL or 1~
+    HL7_OBX_STR_POSITION_VALUE_TYPE, // ST
+    HL7_OBX_STR_POSITION_PATIENT_ID,
+    HL7_OBX_STR_POSITION_SUB_ID, // 1 ~
+    HL7_OBX_STR_POSITION_VALUE // bandnumber_name_iuml_class^ ... ^ 1_tIgE_>100_P
+
+};
+
+//OBX||ST|patient_id|1|1_tIgE_>100_P^ 2_d1_50.0_5 ….^62_-_-_-_-|||||
+
+struct HL7_MSH_DATA
+{
+    QString deviceID; // device ID
+    QString dateTime; //yyyyMMddhhMMss
+    HL7_MSH_MESSAGE_TYPE msgType;
+};
+
+//to order lis server
+
+//MSH|^~\&|sblot2^sugentech||LIS||20200609010945||QRY^A19|DeviceNumber|P|2.5|||AL|NE||||
+//QRD||R|I|IndexNumber|||1|PatientID||||
+//QRD||R|I|IndexNumber|||1|PatientID||||
+// or
+//QRD||R|I|0|||1|||||
+
+struct HL7_QRD_DATA
+{
+    QString index;//all 0 / indexNumber 1 ~
+    QString patientID;
+};
+
+struct HL7_ORDER_ELEMENT
+{
+    QString dateTime;
+    QString phoneNumber;
+    QString patientID;
+    QString birthDate;
+    QString panelInitial;
+    QString name;
+    QString sex;
+};
+
+struct HL7_ORDER_DATA
+{
+    QString deviceID;
+    QString dateTime;
+    QMap<int,HL7_ORDER_ELEMENT> data; //key : index 1~
+};
+
+//from order lis server
+//MSH|^~\&|LIS||sblot2||20200609010945||ADR^A19|일련번호|P|2.5|||AL|SU||||
+//PID|1|A00000001|||홍길동|||M|||||||
+//OBR|1|A00000001||I||20200609010945||
+//PID|2|A00000002|||KIM|||F|||||||
+//OBR|2|A00000002||I||20200609010945||
+//PID|3|A00000003|||LEE|||M|||||||
+//OBR|3|A00000003||F||20200609010945||
+
+struct HL7_OBR_DATA
+{
+    QString index;
+    QString patientID;
+    QString panelInitial; //I(max48) or F(max48) or C(max24)
+    QString dateTime;
+    QString resultImagePath;
+};
+
+struct HL7_PID_DATA
+{
+    QString index;
+    QString patientID;
+    QString name;
+    QString sex;
+    QString birthDate;
+    QString phoneNumber;
+};
+
+struct HL7_OBX_ELEMENT
+{
+    QString bandCode;
+    QString iumlResult;
+    QString iumlClass;
+};
+
+//to result lis server
+struct HL7_OBX_DATA
+{
+    QString patientID;
+    QVector<HL7_OBX_ELEMENT> dataResult;
+};
+
+
+#endif // HL7INTERFACEHEADER_H

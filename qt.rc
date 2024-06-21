@@ -1,0 +1,4 @@
+#include <windows.h>
+
+ID_ICON ICON DISCARDABLE "S-Blot2.ico"
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "admin.exe.manifest"

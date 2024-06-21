@@ -1,0 +1,1408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ResultPrintWidget</class>
+ <widget class="QWidget" name="ResultPrintWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>913</width>
+    <height>1376</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget#ResultPrintWidget
+{
+background-color: rgb(255, 255, 255);
+}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="2">
+    <widget class="QLabel" name="labelLogo">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">image: url(:/Image/Image/ResultView/logo_resize.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QTableWidget" name="tableWidgetFront">
+     <property name="minimumSize">
+      <size>
+       <width>400</width>
+       <height>800</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>7</pointsize>
+      </font>
+     </property>
+     <property name="verticalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="autoScroll">
+      <bool>false</bool>
+     </property>
+     <property name="autoScrollMargin">
+      <number>0</number>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="rowCount">
+      <number>32</number>
+     </property>
+     <attribute name="horizontalHeaderVisible">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="horizontalHeaderMinimumSectionSize">
+      <number>10</number>
+     </attribute>
+     <attribute name="horizontalHeaderDefaultSectionSize">
+      <number>10</number>
+     </attribute>
+     <attribute name="horizontalHeaderStretchLastSection">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="verticalHeaderVisible">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="verticalHeaderCascadingSectionResizes">
+      <bool>true</bool>
+     </attribute>
+     <attribute name="verticalHeaderMinimumSectionSize">
+      <number>18</number>
+     </attribute>
+     <attribute name="verticalHeaderDefaultSectionSize">
+      <number>18</number>
+     </attribute>
+     <attribute name="verticalHeaderHighlightSections">
+      <bool>true</bool>
+     </attribute>
+     <attribute name="verticalHeaderStretchLastSection">
+      <bool>false</bool>
+     </attribute>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <column>
+      <property name="text">
+       <string>No</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Allergen</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Code</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>IU/ml</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Class</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Class1</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Class2</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Class3</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Class4</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Class5</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Class6</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>5</number>
+     </property>
+     <property name="leftMargin">
+      <number>5</number>
+     </property>
+     <property name="topMargin">
+      <number>5</number>
+     </property>
+     <property name="rightMargin">
+      <number>5</number>
+     </property>
+     <property name="bottomMargin">
+      <number>5</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="minimumSize">
+        <size>
+         <width>200</width>
+         <height>15</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>200</width>
+         <height>15</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Class of Specific IgE</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTableWidget" name="tableWidgetSpecific">
+       <property name="minimumSize">
+        <size>
+         <width>330</width>
+         <height>220</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>7</pointsize>
+        </font>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="autoScroll">
+        <bool>false</bool>
+       </property>
+       <property name="rowCount">
+        <number>8</number>
+       </property>
+       <attribute name="horizontalHeaderVisible">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="horizontalHeaderMinimumSectionSize">
+        <number>60</number>
+       </attribute>
+       <attribute name="horizontalHeaderDefaultSectionSize">
+        <number>60</number>
+       </attribute>
+       <attribute name="horizontalHeaderStretchLastSection">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="verticalHeaderVisible">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="verticalHeaderMinimumSectionSize">
+        <number>20</number>
+       </attribute>
+       <attribute name="verticalHeaderDefaultSectionSize">
+        <number>20</number>
+       </attribute>
+       <attribute name="verticalHeaderHighlightSections">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="verticalHeaderStretchLastSection">
+        <bool>true</bool>
+       </attribute>
+       <row/>
+       <row/>
+       <row/>
+       <row/>
+       <row/>
+       <row/>
+       <row/>
+       <row/>
+       <column>
+        <property name="text">
+         <string>IU/mL</string>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>7</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Class</string>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>7</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Level</string>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>7</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+       </column>
+       <item row="0" column="0">
+        <property name="text">
+         <string>IU/ml</string>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="0" column="1">
+        <property name="text">
+         <string>Class</string>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="0" column="2">
+        <property name="text">
+         <string>Level</string>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="1" column="0">
+        <property name="text">
+         <string>0.00~0.34</string>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="1" column="1">
+        <property name="text">
+         <string>0</string>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="1" column="2">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="2" column="0">
+        <property name="text">
+         <string>0.35~0.69</string>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="2" column="1">
+        <property name="text">
+         <string>1</string>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="2" column="2">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="3" column="0">
+        <property name="text">
+         <string>0.70~3.49</string>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="3" column="1">
+        <property name="text">
+         <string>2</string>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="3" column="2">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="4" column="0">
+        <property name="text">
+         <string>3.50~17.49</string>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="4" column="1">
+        <property name="text">
+         <string>3</string>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="4" column="2">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="5" column="0">
+        <property name="text">
+         <string>17.50~49.99</string>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="5" column="1">
+        <property name="text">
+         <string>4</string>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="5" column="2">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="6" column="0">
+        <property name="text">
+         <string>50.00~100</string>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="6" column="1">
+        <property name="text">
+         <string>5</string>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="6" column="2">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="7" column="0">
+        <property name="text">
+         <string>&gt;100</string>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="7" column="1">
+        <property name="text">
+         <string>6</string>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="7" column="2">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item row="4" column="1">
+    <layout class="QGridLayout" name="gridLayout_3">
+     <property name="leftMargin">
+      <number>5</number>
+     </property>
+     <property name="topMargin">
+      <number>5</number>
+     </property>
+     <property name="rightMargin">
+      <number>5</number>
+     </property>
+     <property name="bottomMargin">
+      <number>5</number>
+     </property>
+     <item row="0" column="0" colspan="2">
+      <widget class="QLabel" name="label_5">
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Note</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLabel" name="lbSign">
+       <property name="minimumSize">
+        <size>
+         <width>200</width>
+         <height>50</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="1" column="0" colspan="2">
+      <widget class="QTextEdit" name="editNote">
+       <property name="minimumSize">
+        <size>
+         <width>300</width>
+         <height>180</height>
+        </size>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::NoTextInteraction</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="1">
+    <widget class="QTableWidget" name="tableWidgetBack">
+     <property name="minimumSize">
+      <size>
+       <width>400</width>
+       <height>800</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>7</pointsize>
+      </font>
+     </property>
+     <property name="verticalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="autoScroll">
+      <bool>false</bool>
+     </property>
+     <property name="autoScrollMargin">
+      <number>0</number>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="rowCount">
+      <number>32</number>
+     </property>
+     <attribute name="horizontalHeaderVisible">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="horizontalHeaderMinimumSectionSize">
+      <number>10</number>
+     </attribute>
+     <attribute name="horizontalHeaderDefaultSectionSize">
+      <number>10</number>
+     </attribute>
+     <attribute name="horizontalHeaderStretchLastSection">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="verticalHeaderVisible">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="verticalHeaderCascadingSectionResizes">
+      <bool>true</bool>
+     </attribute>
+     <attribute name="verticalHeaderMinimumSectionSize">
+      <number>18</number>
+     </attribute>
+     <attribute name="verticalHeaderDefaultSectionSize">
+      <number>18</number>
+     </attribute>
+     <attribute name="verticalHeaderHighlightSections">
+      <bool>true</bool>
+     </attribute>
+     <attribute name="verticalHeaderStretchLastSection">
+      <bool>false</bool>
+     </attribute>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <column>
+      <property name="text">
+       <string>No</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Allergen</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Code</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>IU/ml</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Class</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Class1</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Class2</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Class3</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Class4</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Class5</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Class6</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="labelSubTitle">
+       <property name="palette">
+        <palette>
+         <active>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>85</red>
+             <green>170</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </active>
+         <inactive>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>85</red>
+             <green>170</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </inactive>
+         <disabled>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>120</red>
+             <green>120</green>
+             <blue>120</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </disabled>
+        </palette>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lbLogo">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>200</width>
+         <height>50</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="QFrame" name="frame">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="lineWidth">
+      <number>1</number>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item row="0" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <property name="spacing">
+         <number>5</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="labelPatientIDTitle">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>8</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="labelPatientID">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="indent">
+           <number>5</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <widget class="QLabel" name="labelInstitutionTitle">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>8</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="labelInstitution">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="indent">
+           <number>5</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QLabel" name="labelPatientNameTitle">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>8</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="labelPatientName">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="indent">
+           <number>5</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_7">
+        <item>
+         <widget class="QLabel" name="labelTestingDateTitle">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>8</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="labelTestingDate">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="indent">
+           <number>5</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="2" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QLabel" name="labelAgeTitle">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>8</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="labelAge">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="indent">
+           <number>5</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="2" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_8">
+        <item>
+         <widget class="QLabel" name="labelTestedByTitle">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>8</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="labelTestedBy">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="indent">
+           <number>5</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="3" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="QLabel" name="labelSexTitle">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>8</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="labelSex">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="indent">
+           <number>5</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="3" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <item>
+         <widget class="QLabel" name="labelPanelTitle">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="palette">
+           <palette>
+            <active>
+             <colorrole role="WindowText">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>0</red>
+                <green>170</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </active>
+            <inactive>
+             <colorrole role="WindowText">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>0</red>
+                <green>170</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </inactive>
+            <disabled>
+             <colorrole role="WindowText">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>120</red>
+                <green>120</green>
+                <blue>120</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </disabled>
+           </palette>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>8</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="labelPanel">
+          <property name="palette">
+           <palette>
+            <active>
+             <colorrole role="WindowText">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>0</red>
+                <green>170</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </active>
+            <inactive>
+             <colorrole role="WindowText">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>0</red>
+                <green>170</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </inactive>
+            <disabled>
+             <colorrole role="WindowText">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>120</red>
+                <green>120</green>
+                <blue>120</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </disabled>
+           </palette>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>8</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="indent">
+           <number>5</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

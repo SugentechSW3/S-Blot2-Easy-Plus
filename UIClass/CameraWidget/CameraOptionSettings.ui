@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CameraOptionSettings</class>
+ <widget class="QWidget" name="CameraOptionSettings">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1103</width>
+    <height>312</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>1</number>
+   </property>
+   <property name="topMargin">
+    <number>1</number>
+   </property>
+   <property name="rightMargin">
+    <number>1</number>
+   </property>
+   <property name="bottomMargin">
+    <number>1</number>
+   </property>
+   <property name="spacing">
+    <number>1</number>
+   </property>
+   <item row="0" column="2">
+    <widget class="QWidget" name="widgetPosition" native="true">
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <property name="spacing">
+       <number>1</number>
+      </property>
+      <property name="leftMargin">
+       <number>1</number>
+      </property>
+      <property name="topMargin">
+       <number>1</number>
+      </property>
+      <property name="rightMargin">
+       <number>1</number>
+      </property>
+      <property name="bottomMargin">
+       <number>1</number>
+      </property>
+      <item>
+       <widget class="CameraPositionSetting" name="widgetPositionSetting" native="true"/>
+      </item>
+      <item>
+       <widget class="QRPositionSettingWidget" name="widgetQRPositionSetting" native="true"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QWidget" name="widgetPart2nd" native="true">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>1</number>
+      </property>
+      <property name="leftMargin">
+       <number>1</number>
+      </property>
+      <property name="topMargin">
+       <number>1</number>
+      </property>
+      <property name="rightMargin">
+       <number>1</number>
+      </property>
+      <property name="bottomMargin">
+       <number>1</number>
+      </property>
+      <item>
+       <widget class="LEDSetting" name="widgetLEDSetting" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="MoveControlWidget" name="widgetMove" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="3">
+    <widget class="CameraLightSetting" name="widgetCameraLightSetting" native="true"/>
+   </item>
+   <item row="0" column="0">
+    <widget class="QWidget" name="widgetPart1st" native="true">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="spacing">
+       <number>1</number>
+      </property>
+      <property name="leftMargin">
+       <number>1</number>
+      </property>
+      <property name="topMargin">
+       <number>1</number>
+      </property>
+      <property name="rightMargin">
+       <number>1</number>
+      </property>
+      <property name="bottomMargin">
+       <number>1</number>
+      </property>
+      <item>
+       <widget class="GuideLineWidget" name="widgetGuideLine" native="true"/>
+      </item>
+      <item>
+       <widget class="FlipWidget" name="widgetFlip" native="true"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="4">
+    <widget class="QWidget" name="widget" native="true">
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="spacing">
+       <number>1</number>
+      </property>
+      <property name="leftMargin">
+       <number>1</number>
+      </property>
+      <property name="topMargin">
+       <number>1</number>
+      </property>
+      <property name="rightMargin">
+       <number>1</number>
+      </property>
+      <property name="bottomMargin">
+       <number>1</number>
+      </property>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>GuideLineWidget</class>
+   <extends>QWidget</extends>
+   <header>UIClass/CameraWidget/SubWidget/GuideLineWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>LEDSetting</class>
+   <extends>QWidget</extends>
+   <header>UIClass/CameraWidget/SubWidget/LEDSetting.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CameraPositionSetting</class>
+   <extends>QWidget</extends>
+   <header>UIClass/CameraWidget/SubWidget/CameraPositionSetting.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MoveControlWidget</class>
+   <extends>QWidget</extends>
+   <header>UIClass/CameraWidget/SubWidget/MoveControlWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CameraLightSetting</class>
+   <extends>QWidget</extends>
+   <header>UIClass/CameraWidget/SubWidget/CameraLightSetting.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>FlipWidget</class>
+   <extends>QWidget</extends>
+   <header>UIClass/CameraWidget/SubWidget/FlipWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QRPositionSettingWidget</class>
+   <extends>QWidget</extends>
+   <header>UIClass/CameraWidget/SubWidget/QRPositionSettingWidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

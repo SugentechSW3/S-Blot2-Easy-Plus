@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1366</width>
+    <height>768</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1366</width>
+    <height>768</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>S-Blot 2 Easy PLUS</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="MainView" name="mainWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1366</width>
+      <height>768</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QWidget" name="widgetAlpha" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1920</width>
+      <height>1080</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(0, 0, 0, 128);</string>
+    </property>
+   </widget>
+  </widget>
+  <action name="actionQt">
+   <property name="text">
+    <string>Qt</string>
+   </property>
+  </action>
+  <action name="actionSugentech">
+   <property name="text">
+    <string>Sugentech</string>
+   </property>
+  </action>
+  <action name="actionQtLib">
+   <property name="text">
+    <string>Qt Lib</string>
+   </property>
+  </action>
+  <action name="actionOpenSource">
+   <property name="text">
+    <string>OpenSource</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>MainView</class>
+   <extends>QWidget</extends>
+   <header>UIClass/MainView.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

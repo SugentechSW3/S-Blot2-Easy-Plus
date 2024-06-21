@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CameraPositionSetting</class>
+ <widget class="QWidget" name="CameraPositionSetting">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>425</width>
+    <height>260</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_6">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string>Camera Position Setting</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_5">
+      <item row="0" column="0">
+       <widget class="QGroupBox" name="group1">
+        <property name="title">
+         <string>Camera Pos</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0" colspan="2">
+          <widget class="QSpinBox" name="spinXPos">
+           <property name="accelerated">
+            <bool>true</bool>
+           </property>
+           <property name="minimum">
+            <number>-2147483647</number>
+           </property>
+           <property name="maximum">
+            <number>2147483647</number>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QPushButton" name="btnXPosRead">
+           <property name="text">
+            <string>Read</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QPushButton" name="btnXPosWrite">
+           <property name="text">
+            <string>Write</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QGroupBox" name="group4">
+        <property name="title">
+         <string>Camera  Width Pos</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_4">
+         <item row="0" column="0" colspan="2">
+          <widget class="QSpinBox" name="spinCameraWidthPos">
+           <property name="accelerated">
+            <bool>true</bool>
+           </property>
+           <property name="minimum">
+            <number>-2147483647</number>
+           </property>
+           <property name="maximum">
+            <number>2147483647</number>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QPushButton" name="btnCameraWidthPosRead">
+           <property name="text">
+            <string>Read</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QPushButton" name="btnCameraWidthPosWrite">
+           <property name="text">
+            <string>Write</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

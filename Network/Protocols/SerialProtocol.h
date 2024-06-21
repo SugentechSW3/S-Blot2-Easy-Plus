@@ -1,0 +1,63 @@
+#ifndef SERIAL_PROTOCOL_H
+#define SERIAL_PROTOCOL_H
+
+//deprecated 0xx
+
+#define PROTOCOL_VER_1_0_0_0  (0x1000) //Basic Version
+#define PROTOCOL_VER_CURRENT (PROTOCOL_VER_1_0_0_0)
+
+
+const unsigned char NULL_PADDING  = 0x00;
+const unsigned int  NULL_PADDINGS = 0x00000000;
+const unsigned char ASC_ACK = 0x06;
+const unsigned char ASC_NAK = 0x15;
+const unsigned char ASC_FAIL = 0xFF;
+
+const unsigned char S_STX = 0x5B;
+const unsigned char E_ETX = 0x5D;
+const unsigned char FIXED_SIZE = 0x08;
+
+const char SIZE_STX = 1;
+const char SIZE_MD_SIZE = 2;
+const char SIZE_CMD_SIZE = 2;
+const char SIZE_COMMAND = SIZE_MD_SIZE + SIZE_CMD_SIZE;
+const char SIZE_LENGTH = 2;
+const char SIZE_DATA = 8;
+const char SIZE_CHECKSUM = 2;
+const char SIZE_ETX = 1;
+
+const char PROTOCOL_TOT_SIZE = SIZE_STX + SIZE_COMMAND + SIZE_LENGTH + SIZE_DATA + SIZE_CHECKSUM + SIZE_ETX;
+
+const char POSITION_STX = 0;
+const char POSITION_ETX = PROTOCOL_TOT_SIZE - 1;
+
+
+enum MD_MODE
+{
+    MD_MODE_STATUS_READ,
+    MD_MODE_CONTROL_WRITE = MD_MODE_STATUS_READ,
+    MD_MODE_CONTROL_READ = MD_MODE_STATUS_READ,
+    MD_MODE_GENERAL_SETTING,
+    MD_MODE_MOTOR_SETTING_MODE = 0x03,
+    MD_MODE_QR_SETTING_MODE = MD_MODE_MOTOR_SETTING_MODE,
+    MD_MODE_PUMP_SETTING_MODE,
+    MD_MODE_SENSER_SETTING_MODE,
+    MD_MODE_SEQUENCE_GENERATOR_SETTING = 0x08,
+    MD_MODE_QC_MODE,
+    MD_MODE_CAMERA_PARAMETER_WRITE,
+    MD_MODE_CAMERA_PARAMETER_READ,
+
+    MD_MODE_ERROR = 0x80,
+    MD_MODE_ENUM_LAST =0xFF
+};
+
+enum SEQEUENCE_FLAG
+{
+    SEQEUENCE_FLAG_USER_MANUAL,
+    SEQEUENCE_FLAG_FULL
+};
+
+
+
+
+#endif // SERIAL_PROTOCOL_H
